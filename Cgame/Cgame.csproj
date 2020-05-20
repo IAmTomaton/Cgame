@@ -46,6 +46,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -58,12 +60,25 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Core\Game.cs" />
+    <Compile Include="Core\Interfaces\IGame.cs" />
+    <Compile Include="Core\Interfaces\IPainter.cs" />
+    <Compile Include="Core\Interfaces\ISpace.cs" />
+    <Compile Include="Core\Interfaces\ITextureLibrary.cs" />
+    <Compile Include="Core\Painter.cs" />
+    <Compile Include="Data\Interfaces\IKilling.cs" />
+    <Compile Include="Data\Interfaces\IShootable.cs" />
+    <Compile Include="Data\Objects\Bullet.cs" />
+    <Compile Include="Data\Objects\Obstacle.cs" />
+    <Compile Include="Data\Objects\Platform.cs" />
+    <Compile Include="SceneLoader.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -72,12 +87,29 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ConsoleListener.cs" />
+    <Compile Include="Core\Camera.cs" />
+    <Compile Include="Core\Physics\Collider.cs" />
+    <Compile Include="Core\Physics\Collision.cs" />
+    <Compile Include="Core\GameContext.cs" />
+    <Compile Include="Core\GameObject.cs" />
+    <Compile Include="Core\Interfaces\ISpaceContext.cs" />
+    <Compile Include="Core\LayerSettings.cs" />
+    <Compile Include="Core\Graphic\Primitive.cs" />
+    <Compile Include="Core\Shader.cs" />
+    <Compile Include="Core\Space.cs" />
+    <Compile Include="Core\Sprite.cs" />
+    <Compile Include="Core\Graphic\Texture.cs" />
+    <Compile Include="Core\Graphic\TextureLibrary.cs" />
+    <Compile Include="Core\WindowSettings.cs" />
+    <Compile Include="GameObjectParameter.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -95,6 +127,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Resources\Shaders\shader.frag">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Shaders\shader.vert">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="OpenTK.dll.config" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -104,6 +142,39 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\texturePaths.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Textures\a.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Textures\b.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Textures\base.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Textures\bullet.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Textures\none.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Textures\platform.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Textures\triangle.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Scenes\scene1.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

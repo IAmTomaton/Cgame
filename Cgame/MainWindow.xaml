@@ -4,9 +4,16 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Cgame"
+        xmlns:opentk="clr-namespace:OpenTK;assembly=OpenTK.GLControl"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <WindowsFormsHost Initialized="WindowsFormsHost_Initialized" Grid.ColumnSpan="2">
+            <opentk:GLControl x:Name="gLControl" Load="GLControl_Load" Paint="GLControl_Paint" Resize="OnResize"/>
+        </WindowsFormsHost>
     </Grid>
 </Window>

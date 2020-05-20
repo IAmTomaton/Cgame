@@ -1,0 +1,8 @@
+﻿basePath Resources\Textures
+base base.bmp
+none none.bmp
+player1 a.bmp
+player2 b.bmp
+bullet bullet.bmp
+triangle triangle.bmp
+platform platform.bmp
