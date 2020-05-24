@@ -5,7 +5,6 @@ using Cgame.Core.Shaders;
 using Ninject;
 using OpenTK;
 using System.Timers;
-using OpenTK.Input;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL4;
 using System;
@@ -22,6 +21,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace Cgame
 {
@@ -46,6 +46,7 @@ namespace Cgame
             conteiner.Bind<Shader>().ToConstant(new Shader("Resources/Shaders/shader.vert", "Resources/Shaders/shader.frag"));
             conteiner.Bind<ITextureLibrary>().To<TextureLibrary>();
             conteiner.Bind<GLControl>().ToConstant(gLControl);
+            conteiner.Bind<Grid>().ToConstant(GUI);
             conteiner.Bind<IPainter>().To<Painter>();
             conteiner.Bind<ISpace>().To<Space>();
             conteiner.Bind<Camera>().ToSelf();

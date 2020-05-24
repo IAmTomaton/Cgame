@@ -1,5 +1,7 @@
 ﻿using OpenTK.Input;
 using System.Collections.Generic;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace Cgame.Core.Interfaces
 {
@@ -82,5 +84,15 @@ namespace Cgame.Core.Interfaces
         /// Промежуток времени прошедший с последнего обновления.
         /// </summary>
         float DelayTime { get; }
+        /// <summary>
+        /// Добавляет элемент UI к корневому Grid.
+        /// </summary>
+        /// <param name="element"></param>
+        void AddUIElement(UIElement element);
+        /// <summary>
+        /// Удаляет элемент UI из корневого Grid.
+        /// </summary>
+        /// <param name="element"></param>
+        void RemoveUIElement(UIElement element);
     }
 }

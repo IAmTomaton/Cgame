@@ -3,16 +3,23 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Cgame"
+        xmlns:local="clr-namespace:Cgame.Core"
         xmlns:opentk="clr-namespace:OpenTK;assembly=OpenTK.GLControl"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0*"/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <WindowsFormsHost Initialized="WindowsFormsHost_Initialized" Grid.ColumnSpan="2">
+    <Grid x:Name="Root">
+        <local:AirspacePopup PlacementTarget="{Binding ElementName=wfHost}"
+                         FollowPlacementTarget="True"
+                         AllowOutsideScreenPlacement="True"
+                         ParentWindow="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                         IsOpen="True"
+                         AllowsTransparency="True"
+                         Placement="Center"
+                         Width="{Binding ElementName=googleBrowser, Path=ActualWidth}"
+                         Height="{Binding ElementName=googleBrowser, Path=ActualHeight}">
+            <Grid x:Name="GUI"/>
+        </local:AirspacePopup>
+        <WindowsFormsHost x:Name="wfHost" Initialized="WindowsFormsHost_Initialized">
             <opentk:GLControl x:Name="gLControl" Load="GLControl_Load" Paint="GLControl_Paint" Resize="OnResize"/>
         </WindowsFormsHost>
     </Grid>

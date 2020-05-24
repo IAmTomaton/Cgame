@@ -4,6 +4,8 @@ using OpenTK;
 using OpenTK.Input;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace Cgame.Core
 {
@@ -14,6 +16,7 @@ namespace Cgame.Core
     {
         public float DelayTime { get; private set; }
         public Camera Camera { get; private set; }
+        public Grid GUI { get; private set; }
 
         private readonly Queue<GameObject> objectsToDelete = new Queue<GameObject>();
         private readonly Queue<GameObject> globalObjectsToDelete = new Queue<GameObject>();
@@ -37,9 +40,10 @@ namespace Cgame.Core
         private IEnumerable<GameObject> GlobalObjects => globalCollidingObjects
             .Concat(globalNonCollidingObjects);
 
-        public Space(Camera camera)
+        public Space(Camera camera, Grid gui)
         {
             Camera = camera;
+            GUI = gui;
             camera.Position = Vector3.UnitZ * 500;
             SceneLoader.LoadNextScene(this);
         }
@@ -222,6 +226,18 @@ namespace Cgame.Core
                 nonColliding.Remove(gameObject);
                 return;
             }
+        }
+
+        public void AddUIElement(UIElement element)
+        {
+            if (!GUI.Children.Contains(element))
+                GUI.Children.Add(element);
+        }
+
+        public void RemoveUIElement(UIElement element)
+        {
+            if (GUI.Children.Contains(element))
+                GUI.Children.Remove(element);
         }
     }
 }
