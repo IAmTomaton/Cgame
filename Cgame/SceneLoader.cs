@@ -14,8 +14,8 @@ namespace Cgame
     {
         private static List<string> scenes = new List<string>
         {
-            "Resources/Scenes/scene2.txt",
-            "Resources/Scenes/scene1.txt"
+            "Resources/Scenes/scene2.txt"
+            //"Resources/Scenes/scene1.txt"
         };
         private static int currentSceneNumber = -1;
         private static Scene currentScene = null;
@@ -24,7 +24,6 @@ namespace Cgame
         {
             if (!(currentScene is null) && currentScene.IsEnded)
             {
-                Console.WriteLine("SCENE END");
                 updateContext.ClearLocals();
                 LoadNextScene(updateContext);
             }
@@ -43,8 +42,8 @@ namespace Cgame
                     var pair = SceneProcesser.Process(line, uc);
                     if (pair.ifAdded && pair.newObject is Player player)
                     {
-                        currentScene = new Scene(player, new OpenTK.Vector3(-100, 0, 0),
-                            new OpenTK.Vector3(100, 0, 0));
+                        currentScene = new Scene(player, new OpenTK.Vector3(-900, 0, 0),
+                            new OpenTK.Vector3(1100, 0, 0));
                         playerAdded = true;
                     }
                 }

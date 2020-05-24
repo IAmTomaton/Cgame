@@ -36,7 +36,7 @@ namespace Cgame
         private bool isJumpingUp = false;
         private bool isFallingAfterJump = false;
         public bool isShooting = false;
-        private static float defaultSpeedX = 15;
+        private static float defaultSpeedX = 100;
 
         private bool hasGravity = true;
         private bool hasJumps = true;
@@ -145,7 +145,7 @@ namespace Cgame
 
         public void SendBullet(Vector2 shootDirection,float range, float speed)
         {
-            GameContext.Space.AddLocalObject(new Bullet(this, shootDirection, this.Position,range, speed));
+            GameContext.Space.AddLocalObject(new Bullet(this, shootDirection, this.Position, range, speed));
             isShooting = true;
         }
 
@@ -153,53 +153,62 @@ namespace Cgame
         {
             var input = GameContext.KeyboardDevice;
             var dt = GameContext.DelayTime;
-            if (input.IsKeyDown(Key.Z) && !isShooting)
+            if (IsAlive)
             {
-                switch (shootType) {
-                    case ShootType.CreateBullet:
-                        SendBullet(new Vector2(1, 0), 300, 200);
-                        break;
-                    case ShootType.Raycast:
-                        ShootStraight(new Vector2(1, 0));
-                        break;
-                }
-            }
-            if (hasJumps)
-            {
-                if (input.IsKeyDown(Key.W) && !isJumpingUp && !isFallingAfterJump)
+                if (input.IsKeyDown(Key.Z) && !isShooting)
                 {
-                    Velocity += 400 * up;
-                    isJumpingUp = true;
+                    switch (shootType)
+                    {
+                        case ShootType.CreateBullet:
+                            SendBullet(new Vector2(1, 0), 300, defaultSpeedX*10);
+                            break;
+                        case ShootType.Raycast:
+                            ShootStraight(new Vector2(1, 0));
+                            break;
+                    }
                 }
-                if (isJumpingUp && Velocity.Y == 0)
+                if (hasJumps)
                 {
-                    isJumpingUp = false;
-                    isFallingAfterJump = true;
+                    if (input.IsKeyDown(Key.W) && !isJumpingUp && !isFallingAfterJump)
+                    {
+                        Velocity += 550 * up;
+                        isJumpingUp = true;
+                    }
+                    if (isJumpingUp && Velocity.Y == 0)
+                    {
+                        isJumpingUp = false;
+                        isFallingAfterJump = true;
+                    }
                 }
-            }
-            if (movementType == MovementType.NoAcceleration)
-            {
-                if (input.IsKeyDown(Key.A))
-                    Velocity -= 200 * right;
-                if (input.IsKeyDown(Key.D))
-                    Velocity += 200 * right;
-            }
-            if (Velocity.Y < -100)
-            {
-                Velocity = new Vector2(defaultSpeedX, -100);
-            }
-            if (movementType == MovementType.UserAcceleration)
-            {
-                if (input.IsKeyDown(Key.D))
+                if (movementType == MovementType.NoAcceleration)
                 {
-                    Velocity += 40 * right; 
+                    if (input.IsKeyDown(Key.A))
+                        Velocity -= 200 * right;
+                    if (input.IsKeyDown(Key.D))
+                        Velocity += 200 * right;
                 }
-                if (Velocity.X > 0)
-                    Velocity += horiz_acc;
+                if (Velocity.Y < -100)
+                {
+                    Velocity = new Vector2(defaultSpeedX, -100);
+                }
+                if (movementType == MovementType.UserAcceleration)
+                {
+                    if (input.IsKeyDown(Key.D))
+                    {
+                        Velocity += 40 * right;
+                    }
+                    if (Velocity.X > 0)
+                        Velocity += horiz_acc;
+                }
+                if (hasGravity)
+                    Velocity += vert_acc;
+                Position += new Vector3(Velocity.X * dt, Velocity.Y * dt, 0);
+                if (Position.Y < -500)
+                {
+                    Sprite.StepForward();
+                    IsAlive = false;
+                }
             }
-            if (hasGravity)
-                Velocity += vert_acc;
-            Position += new Vector3(Velocity.X * dt, Velocity.Y * dt, 0);
             base.Update();
         }
     }
