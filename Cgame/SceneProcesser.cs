@@ -65,8 +65,12 @@ namespace Cgame
                     add = true;
                     break;
                 case "cancel":
-                    var lastObj = gameObjectsStack.Pop();
-                    uc.DeleteObject(lastObj);
+                    if (gameObjectsStack.Count() != 0)
+                    {
+                        var lastObj = gameObjectsStack.Pop();
+                        uc.DeleteObject(lastObj);
+                    }
+                    else Console.WriteLine("some mistake in scene command(add/delete)");
                     break;
                 default:
                     Console.WriteLine("some mistake in scene command(add/delete)");
