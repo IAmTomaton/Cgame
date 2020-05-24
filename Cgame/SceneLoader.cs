@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Cgame
 {
@@ -13,22 +14,43 @@ namespace Cgame
     {
         private static List<string> scenes = new List<string>
         {
+            "Resources/Scenes/scene2.txt",
             "Resources/Scenes/scene1.txt"
         };
-        private static int currentScene = -1;
+        private static int currentSceneNumber = -1;
+        private static Scene currentScene = null;
+
+        public static void Update(ISpaceContext updateContext)
+        {
+            if (!(currentScene is null) && currentScene.IsEnded)
+            {
+                Console.WriteLine("SCENE END");
+                updateContext.ClearLocals();
+                LoadNextScene(updateContext);
+            }
+        }
 
         public static void LoadNextScene(ISpaceContext uc)
         {
-            currentScene += 1;
-            var path = scenes[currentScene % scenes.Count()];
+            currentSceneNumber += 1;
+            var path = scenes[currentSceneNumber % scenes.Count()];
+            bool playerAdded = false;
             using (StreamReader sr = new StreamReader(path, System.Text.Encoding.Default))
             {
                 string line;
                 while ((line = sr.ReadLine()) != null)
                 {
-                    ConsoleListener.Process(line, uc);
+                    var pair = SceneProcesser.Process(line, uc);
+                    if (pair.ifAdded && pair.newObject is Player player)
+                    {
+                        currentScene = new Scene(player, new OpenTK.Vector3(-100, 0, 0),
+                            new OpenTK.Vector3(100, 0, 0));
+                        playerAdded = true;
+                    }
                 }
             }
+            if (!playerAdded)
+                Console.WriteLine("В этой сцене нет игрока!");
         }
     }
 }

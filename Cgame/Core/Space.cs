@@ -2,10 +2,12 @@
 using Cgame.objects;
 using OpenTK;
 using OpenTK.Input;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Forms;
 
 namespace Cgame.Core
 {
@@ -20,14 +22,14 @@ namespace Cgame.Core
 
         private readonly Queue<GameObject> objectsToDelete = new Queue<GameObject>();
         private readonly Queue<GameObject> globalObjectsToDelete = new Queue<GameObject>();
-        private readonly Queue<GameObject> localObjectsToDelete = new Queue<GameObject>();
+        private Queue<GameObject> localObjectsToDelete = new Queue<GameObject>();
         private readonly Queue<GameObject> globalObjectsToAdd = new Queue<GameObject>();
-        private readonly Queue<GameObject> localObjectsToAdd = new Queue<GameObject>();
+        private Queue<GameObject> localObjectsToAdd = new Queue<GameObject>();
 
         private readonly List<GameObject> globalCollidingObjects = new List<GameObject>();
-        private readonly List<GameObject> localCollidingObjects = new List<GameObject>();
+        private List<GameObject> localCollidingObjects = new List<GameObject>();
         private readonly List<GameObject> globalNonCollidingObjects = new List<GameObject>();
-        private readonly List<GameObject> localNonCollidingObjects = new List<GameObject>();
+        private List<GameObject> localNonCollidingObjects = new List<GameObject>();
 
         private IEnumerable<GameObject> AllObgects => globalCollidingObjects
             .Concat(localCollidingObjects)
@@ -46,6 +48,7 @@ namespace Cgame.Core
             GUI = gui;
             camera.Position = Vector3.UnitZ * 500;
             SceneLoader.LoadNextScene(this);
+
         }
 
         public void Update(float delayTime)
@@ -56,6 +59,14 @@ namespace Cgame.Core
             DeleteGameObjects();
             AddGameObjects();
             CollisionCheck();
+        }
+
+        public void ClearLocals()
+        {
+            localObjectsToDelete = new Queue<GameObject>();
+            localObjectsToAdd = new Queue<GameObject>();
+            localCollidingObjects = new List<GameObject>();
+            localNonCollidingObjects = new List<GameObject>();
         }
 
         public IEnumerable<Sprite> GetSprites()
@@ -91,8 +102,6 @@ namespace Cgame.Core
         private void MoveGameObject(GameObject gameObject)
         {
             gameObject.Position += new Vector3(gameObject.Velocity.X * DelayTime, gameObject.Velocity.Y * DelayTime, 0);
-            //if (gameObject is Player)
-            //    Console.WriteLine("after move " + gameObject.Position.ToString());
         }
 
         /// <summary>
@@ -102,7 +111,9 @@ namespace Cgame.Core
         {
             foreach (var gameObject in AllObgects)
                 gameObject.Update();
+            ConsoleControl.Update(this);
             ConsoleListener.Update(this);
+            SceneLoader.Update(this);
         }
 
         /// <summary>
@@ -146,11 +157,6 @@ namespace Cgame.Core
             var ratio = massSum == gameObject.Mass ? 1 : (massSum - gameObject.Mass) / massSum;
             var delta = collision.Mtv * ratio * collision.MtvLength;
             gameObject.Position += new Vector3(delta) * revers;
-            /*if (gameObject is Player)
-            {
-                Console.WriteLine("ratio " + ratio.ToString()+"delta "+delta.ToString());
-                Console.WriteLine("after collision " + gameObject.Position.ToString() + "reverse" + revers.ToString());
-            }*/
         }
 
         public void AddLocalObject(GameObject gameObject) => localObjectsToAdd.Enqueue(gameObject);
@@ -194,7 +200,6 @@ namespace Cgame.Core
         private IEnumerable<T> FindObjectIn<T>(IEnumerable<GameObject> objects)
         {
             return objects.Where(obj => obj is T).Cast<T>();
-            //return objects.Cast<T>();
         }
 
         public void DeleteLocalObject(GameObject gameObject) => localObjectsToDelete.Enqueue(gameObject);
@@ -209,8 +214,9 @@ namespace Cgame.Core
                 DeleteObjectFrom(localObjectsToDelete.Dequeue(), localCollidingObjects, localNonCollidingObjects);
             while (objectsToDelete.Count > 0)
             {
-                DeleteObjectFrom(objectsToDelete.Dequeue(), localCollidingObjects, localNonCollidingObjects);
-                DeleteObjectFrom(objectsToDelete.Dequeue(), globalCollidingObjects, globalNonCollidingObjects);
+                var toDelete = objectsToDelete.Dequeue();
+                DeleteObjectFrom(toDelete, localCollidingObjects, localNonCollidingObjects);
+                DeleteObjectFrom(toDelete, globalCollidingObjects, globalNonCollidingObjects);
             }
         }
 

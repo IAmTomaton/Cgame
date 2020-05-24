@@ -7,29 +7,30 @@ using System.Threading.Tasks;
 
 namespace Cgame
 {
-    class GameObjectParameter
+    public class GameObjectParameter
     {
-        public Vector3 Position;
+        public Vector3 Position { get; private set; }
         public GameObjectParameter(Vector3 pos)
         {
             Position = pos;
         }
     }
 
-    class PlayerObjectParameter : GameObjectParameter
+    public class PlayerObjectParameter : GameObjectParameter
     {
-        public bool hasGravity;
-        public bool hasJumps;
-        public MovementType movementType;
-        public ShootType shootType;
+        public bool HasGravity { get; private set; }
+        public bool HasJumps { get; private set; }
+        public MovementType MovementType { get; private set; }
+        public ShootType ShootType { get; private set; }
+
         public PlayerObjectParameter(Vector3 pos, bool hasGravity = true, bool hasJumps = true,
             MovementType movementType = MovementType.Continuos, 
             ShootType shootType = ShootType.CreateBullet) : base(pos)
         {
-            this.hasGravity = hasGravity;
-            this.hasJumps = hasJumps;
-            this.movementType = movementType;
-            this.shootType = shootType;
+            this.HasGravity = hasGravity;
+            this.HasJumps = hasJumps;
+            this.MovementType = movementType;
+            this.ShootType = shootType;
         }
     }
 }

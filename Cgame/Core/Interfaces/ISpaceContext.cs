@@ -11,7 +11,7 @@ namespace Cgame.Core.Interfaces
     /// </summary>
     public interface ISpaceContext
     {
-        //IUpdateContext Copy();
+        void ClearLocals();
         /// <summary>
         /// Добавляет локальный объект в пространство.
         /// Локальные объекты удаляются при переходе между сценами.

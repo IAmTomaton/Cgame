@@ -1,0 +1,2 @@
+﻿add local platform 10 10
+add local platform 100 10

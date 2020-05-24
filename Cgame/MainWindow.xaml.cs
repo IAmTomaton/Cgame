@@ -36,6 +36,7 @@ namespace Cgame
         public MainWindow()
         {
             InitializeComponent();
+            ConsoleControl.HideWindow();
         }
 
         private StandardKernel GetConteiner()
@@ -72,7 +73,8 @@ namespace Cgame
 
         private void OnResize(object sender, EventArgs e)
         {
-            game.Resize(gLControl.Width, gLControl.Height);
+            if (game!=null)
+                game.Resize(gLControl.Width, gLControl.Height);
         }
     }
 }

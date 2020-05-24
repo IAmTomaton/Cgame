@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{669A0849-BA01-4953-B8BC-6C97D119F16F}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <RootNamespace>Cgame</RootNamespace>
     <AssemblyName>Cgame</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
@@ -33,6 +33,9 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Ninject, Version=3.3.4.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
@@ -67,6 +70,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ConsoleListener.cs" />
     <Compile Include="Core\AirspacePopup.cs" />
     <Compile Include="Core\Game.cs" />
     <Compile Include="Core\Interfaces\IGame.cs" />
@@ -79,7 +83,9 @@
     <Compile Include="Data\Objects\Bullet.cs" />
     <Compile Include="Data\Objects\Obstacle.cs" />
     <Compile Include="Data\Objects\Platform.cs" />
+    <Compile Include="Scene.cs" />
     <Compile Include="SceneLoader.cs" />
+    <Compile Include="SceneProcesser.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -88,7 +94,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ConsoleListener.cs" />
+    <Compile Include="ConsoleControl.cs" />
     <Compile Include="Core\Camera.cs" />
     <Compile Include="Core\Physics\Collider.cs" />
     <Compile Include="Core\Physics\Collision.cs" />
@@ -174,6 +180,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Scenes\scene1.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Scenes\scene2.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
