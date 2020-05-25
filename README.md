@@ -24,14 +24,21 @@ Ninject
 MainWindow.GetContainer()
 
 # Слои
-UserInterface 
+UserInterface
+
 Папка Core.Grafic, Painter 
+
 Application:
+
 Camera, Game, GameContext, GameObject, LayerSettings, Painter, Shader, Space, Sprite
+
 Domain:
-Physics(?), Bullet, Obstacle, Platfrom, Player, Scene
+
+Physics, Bullet, Obstacle, Platfrom, Player, Scene
+
 Infrastracture:
-ConsoleControl, ConsoleListener(?), SceneLoader, TextureLibrary
+
+ConsoleControl, ConsoleListener, SceneLoader, TextureLibrary
 
 Добавление новых текстур:
 	Для добавления новых текстур нужно только указать в файле texturePaths.txt её имя для библиотеки и имени файла через пробел.
