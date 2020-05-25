@@ -1,5 +1,6 @@
 ﻿using Cgame.Core.Interfaces;
 using Cgame.Core.Shaders;
+using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -49,6 +50,8 @@ namespace Cgame.Core.Graphic
 
         public void AddTexture(string name, string path)
         {
+            if (!File.Exists(path))
+                throw new ArgumentException($"Путь {path} не указывает на файл текстуры {name}.");
             //texture
             var texture = new Texture(path);
             textures[name] = texture;
