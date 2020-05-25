@@ -15,8 +15,8 @@
                          IsOpen="True"
                          AllowsTransparency="True"
                          Placement="Center"
-                         Width="{Binding ElementName=googleBrowser, Path=ActualWidth}"
-                         Height="{Binding ElementName=googleBrowser, Path=ActualHeight}">
+                         Width="{Binding ElementName=wfHost, Path=ActualWidth}"
+                         Height="{Binding ElementName=wfHost, Path=ActualHeight}">
             <Grid x:Name="GUI"/>
         </local:AirspacePopup>
         <WindowsFormsHost x:Name="wfHost" Initialized="WindowsFormsHost_Initialized">
