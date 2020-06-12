@@ -20,16 +20,16 @@ namespace Cgame
         private static int currentSceneNumber = -1;
         private static Scene currentScene = null;
 
-        public static void Update(ISpaceContext updateContext)
+        public static void Update()
         {
             if (!(currentScene is null) && currentScene.IsEnded)
             {
-                updateContext.ClearLocals();
-                LoadNextScene(updateContext);
+                GameContext.Space.ClearLocals();
+                LoadNextScene();
             }
         }
 
-        public static void LoadNextScene(ISpaceContext uc)
+        public static void LoadNextScene()
         {
             currentSceneNumber += 1;
             var path = scenes[currentSceneNumber % scenes.Count()];
@@ -39,7 +39,7 @@ namespace Cgame
                 string line;
                 while ((line = sr.ReadLine()) != null)
                 {
-                    var pair = SceneProcesser.Process(line, uc);
+                    var pair = SceneProcesser.Process(line);
                     if (pair.ifAdded && pair.newObject is Player player)
                     {
                         currentScene = new Scene(player, new OpenTK.Vector3(-900, 0, 0),

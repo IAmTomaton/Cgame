@@ -12,20 +12,21 @@ namespace Cgame.Core
         /// <summary>
         /// Игровое пространство.
         /// </summary>
-        public static ISpaceContext Space => s;
+        public static ISpaceContext Space => IsInitialized ? SpaceUpdater.Space : null;
+        /// <summary>
+        /// Апдейтер игрового пространства.
+        /// </summary>
+        public static ISpaceUpdater SpaceUpdater { get; private set; }
         /// <summary>
         /// Промежуток времени прошедший с последнего обновления.
         /// </summary>
-        public static float DelayTime => Space.DelayTime;
+        public static float DelayTime => IsInitialized ? SpaceUpdater.DelayTime : 0 ;
         public static KeyboardDevice KeyboardDevice => Keyboard.PrimaryDevice;
         public static MouseDevice MouseDevice => Mouse.PrimaryDevice;
 
-        private static ISpace s;
-
-        public static void Init(ISpace space)
+        public static void Init(ISpaceUpdater spaceUpdater)
         {
-            s = space;
-
+            SpaceUpdater = spaceUpdater;
             IsInitialized = true;
         }
     }

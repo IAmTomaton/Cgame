@@ -21,7 +21,7 @@ namespace Cgame
                 { "obstacle", p=>new Obstacle(p)}
             };
 
-        public static GameObject CreateObjectToAdd(string[] commandParts, ISpaceContext uc)
+        public static GameObject CreateObjectToAdd(string[] commandParts)
         {
             GameObject newObject = null;
             int x = 0; int y = 0; bool gr = true; bool jumps = true;
@@ -54,7 +54,7 @@ namespace Cgame
             return newObject;
         }
 
-        public static (bool ifAdded, GameObject newObject) Process(string command, ISpaceContext uc)
+        public static (bool ifAdded, GameObject newObject) Process(string command)
         {
             GameObject newObject = null;
             var commandParts = command.Split();
@@ -68,7 +68,7 @@ namespace Cgame
                     if (gameObjectsStack.Count() != 0)
                     {
                         var lastObj = gameObjectsStack.Pop();
-                        uc.DeleteObject(lastObj);
+                        GameContext.Space.DeleteObject(lastObj);
                     }
                     else Console.WriteLine("some mistake in scene command(add/delete)");
                     break;
@@ -80,13 +80,13 @@ namespace Cgame
             {
                 try
                 {
-                    newObject = CreateObjectToAdd(commandParts, uc);
+                    newObject = CreateObjectToAdd(commandParts);
                     if (newObject != null)
                     {
                         if (commandParts[1] == "local")
-                            uc.AddLocalObject(newObject);
+                            GameContext.Space.AddLocalObject(newObject);
                         else if (commandParts[1] == "global")
-                            uc.AddGlobalObject(newObject);
+                            GameContext.Space.AddGlobalObject(newObject);
                         else
                             Console.WriteLine("wrong command.need local/global");
                     }

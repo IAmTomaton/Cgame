@@ -81,10 +81,6 @@ namespace Cgame.Core.Interfaces
         /// <param name="gameObject"></param>
         void BindGameObjectToCamera(GameObject gameObject);
         /// <summary>
-        /// Промежуток времени прошедший с последнего обновления.
-        /// </summary>
-        float DelayTime { get; }
-        /// <summary>
         /// Добавляет элемент UI к корневому Grid.
         /// </summary>
         /// <param name="element"></param>

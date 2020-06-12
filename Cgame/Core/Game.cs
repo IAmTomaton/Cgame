@@ -4,27 +4,31 @@ namespace Cgame.Core
 {
     class Game : IGame
     {
-        private readonly ISpace space;
+        private readonly ISpaceUpdater spaceUpdater;
         private readonly IPainter painter;
 
-        public Game(ISpace space, IPainter painter)
+        public Game(ISpaceUpdater spaceUpdater, IPainter painter)
         {
-            this.space = space;
+            this.spaceUpdater = spaceUpdater;
             this.painter = painter;
-            GameContext.Init(space);
+            GameContext.Init(spaceUpdater);
         }
 
         public void Resize(int width, int height)
         {
-            space.Resize(width, height);
+            spaceUpdater.Resize(width, height);
+        }
+
+        public void Start()
+        {
+            spaceUpdater.Start();
         }
 
         public void Update(float delayTime)
         {
-            space.Update(delayTime);
-            painter.Draw(space.GetSprites(), space.Camera);
+            spaceUpdater.Update(delayTime);
+            painter.Draw(spaceUpdater.GetSprites(), spaceUpdater.Camera);
         }
-
 
     }
 }

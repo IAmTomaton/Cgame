@@ -14,9 +14,8 @@ namespace Cgame.Core
     /// <summary>
     /// Класс хранящий логическое представление игры и взаимодействующий с ним.
     /// </summary>
-    class Space : ISpace
+    class Space : ISpaceStore
     {
-        public float DelayTime { get; private set; }
         public Camera Camera { get; private set; }
         public Grid GUI { get; private set; }
 
@@ -47,19 +46,17 @@ namespace Cgame.Core
             Camera = camera;
             GUI = gui;
             camera.Position = Vector3.UnitZ * 500;
-            SceneLoader.LoadNextScene(this);
-
         }
 
-        public void Update(float delayTime)
+        public void Update()
         {
-            DelayTime = delayTime;
-            MoveGameObjects();
-            UpdateGameObjects();
             DeleteGameObjects();
             AddGameObjects();
-            CollisionCheck();
         }
+
+        public IEnumerable<GameObject> GetGameObjects() => AllObgects;
+
+        public IEnumerable<GameObject> GetCollidingObjects() => CollidingObjects;
 
         public void ClearLocals()
         {
@@ -85,78 +82,6 @@ namespace Cgame.Core
         public void BindGameObjectToCamera(GameObject gameObject)
         {
             Camera.GameObject = gameObject;
-        }
-
-        /// <summary>
-        /// Перемещает все игровые объекты в соответствии с их скоростью.
-        /// </summary>
-        private void MoveGameObjects()
-        {
-            foreach (var gameObject in AllObgects)
-                MoveGameObject(gameObject);
-        }
-
-        /// <summary>
-        /// Перемещает игровой объект в соответствии с его скоростью.
-        /// </summary>
-        private void MoveGameObject(GameObject gameObject)
-        {
-            gameObject.Position += new Vector3(gameObject.Velocity.X * DelayTime, gameObject.Velocity.Y * DelayTime, 0);
-        }
-
-        /// <summary>
-        /// Обновляет все игровые объекты.
-        /// </summary>
-        private void UpdateGameObjects()
-        {
-            foreach (var gameObject in AllObgects)
-                gameObject.Update();
-            ConsoleControl.Update(this);
-            ConsoleListener.Update(this);
-            SceneLoader.Update(this);
-        }
-
-        /// <summary>
-        /// Проверяет столкновения для всех сталкиваемых игровых объектах.
-        /// </summary>
-        private void CollisionCheck()
-        {
-            var objects = CollidingObjects.ToList();
-            for (var i = 0; i < objects.Count; i++)
-                for (var j = i + 1; j < objects.Count; j++)
-                {
-                    if (!LayerSettings.CheckCollision(objects[i].Layer, objects[j].Layer))
-                        continue;
-                    if (objects[i].Collider is null || objects[j].Collider is null)
-                        continue;
-                    var collision = Collider.Collide(objects[i].Collider, objects[j].Collider);
-                    if (!collision.Collide)
-                        continue;
-                    if (!objects[i].Collider.IsTrigger && !objects[j].Collider.IsTrigger)
-                    {
-                        var massSum = objects[i].Mass + objects[j].Mass;
-                        DisplacementObjectAfterCollision(objects[i], massSum, collision, 1);
-                        DisplacementObjectAfterCollision(objects[j], massSum, collision, -1);
-                    }
-                    objects[i].Collision(objects[j]);
-                    objects[j].Collision(objects[i]);
-                }
-        }
-
-        /// <summary>
-        /// Перемещает столкнувшийся объект.
-        /// </summary>
-        /// <param name="gameObject"></param>
-        /// <param name="massSum"></param>
-        /// <param name="collision"></param>
-        /// <param name="revers"></param>
-        private void DisplacementObjectAfterCollision(GameObject gameObject, float massSum, Collision collision, int revers)
-        {
-            if (gameObject.Mass == 0)
-                return;
-            var ratio = massSum == gameObject.Mass ? 1 : (massSum - gameObject.Mass) / massSum;
-            var delta = collision.Mtv * ratio * collision.MtvLength;
-            gameObject.Position += new Vector3(delta) * revers;
         }
 
         public void AddLocalObject(GameObject gameObject) => localObjectsToAdd.Enqueue(gameObject);
@@ -244,6 +169,11 @@ namespace Cgame.Core
         {
             if (GUI.Children.Contains(element))
                 GUI.Children.Remove(element);
+        }
+
+        public void Start()
+        {
+            SceneLoader.LoadNextScene();
         }
     }
 }

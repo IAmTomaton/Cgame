@@ -9,7 +9,7 @@ namespace Cgame
 {
     public static class ConsoleListener
     {
-        public static void Update(ISpaceContext updateContext)
+        public static void Update()
         {
             if (ConsoleControl.isShown)
             while (Console.KeyAvailable)
@@ -18,7 +18,7 @@ namespace Cgame
                     if (command == "end")
                         ConsoleControl.HideWindow();
                     else
-                        SceneProcesser.Process(command, updateContext);
+                        SceneProcesser.Process(command);
             }
         }
     }

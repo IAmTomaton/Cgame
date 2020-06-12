@@ -75,9 +75,11 @@
     <Compile Include="Core\Game.cs" />
     <Compile Include="Core\Interfaces\IGame.cs" />
     <Compile Include="Core\Interfaces\IPainter.cs" />
-    <Compile Include="Core\Interfaces\ISpace.cs" />
+    <Compile Include="Core\Interfaces\ISpaceStore.cs" />
+    <Compile Include="Core\Interfaces\ISpaceUpdater.cs" />
     <Compile Include="Core\Interfaces\ITextureLibrary.cs" />
     <Compile Include="Core\Painter.cs" />
+    <Compile Include="Core\SpaceUpdater.cs" />
     <Compile Include="Data\Interfaces\IKilling.cs" />
     <Compile Include="Data\Interfaces\IShootable.cs" />
     <Compile Include="Data\Objects\Bullet.cs" />

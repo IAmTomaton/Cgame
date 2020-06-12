@@ -18,5 +18,9 @@
         /// <param name="width"></param>
         /// <param name="height"></param>
         void Resize(int width, int height);
+        /// <summary>
+        /// Запустить пространство.
+        /// </summary>
+        void Start();
     }
 }

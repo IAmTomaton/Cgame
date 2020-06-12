@@ -49,7 +49,7 @@ namespace Cgame
             isShown = true;
         }
 
-        public static void Update(ISpaceContext updateContext)
+        public static void Update()
         {
             var keyBoard = GameContext.KeyboardDevice;
             if (keyBoard.IsKeyDown(Key.K))
