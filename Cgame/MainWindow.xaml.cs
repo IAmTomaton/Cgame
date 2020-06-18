@@ -75,7 +75,7 @@ namespace Cgame
 
         private void OnResize(object sender, EventArgs e)
         {
-            if (game!=null)
+            if (game != null)
                 game.Resize(gLControl.Width, gLControl.Height);
         }
     }
