@@ -1,13 +1,10 @@
 ﻿using Cgame.Core.Interfaces;
-using Cgame.objects;
 using OpenTK;
-using OpenTK.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Forms;
 
 namespace Cgame.Core
 {
@@ -60,6 +57,7 @@ namespace Cgame.Core
 
         public void BindGameObjectToCamera(GameObject gameObject)
         {
+            if (gameObject is null) throw new ArgumentNullException("GameObject к которому можно прикрепить камеру не может быть null.");
             Camera.GameObject = gameObject;
         }
 

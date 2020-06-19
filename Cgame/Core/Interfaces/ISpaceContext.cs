@@ -1,7 +1,5 @@
-﻿using OpenTK.Input;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace Cgame.Core.Interfaces
 {
