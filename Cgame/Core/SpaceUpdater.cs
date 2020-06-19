@@ -64,10 +64,14 @@ namespace Cgame.Core
                         continue;
                     if (objects[i].Collider is null || objects[j].Collider is null)
                         continue;
-                    var collision = Collider.Collide(objects[i].Collider, objects[j].Collider);
+
+                    var firstCollider = objects[i].Collider.BindToGameObject(objects[i]);
+                    var secondCollider = objects[j].Collider.BindToGameObject(objects[j]);
+
+                    var collision = Collider.Collide(firstCollider, secondCollider);
                     if (!collision.Collide)
                         continue;
-                    if (!objects[i].Collider.IsTrigger && !objects[j].Collider.IsTrigger)
+                    if (!firstCollider.IsTrigger && !secondCollider.IsTrigger)
                     {
                         var massSum = objects[i].Mass + objects[j].Mass;
                         DisplacementObjectAfterCollision(objects[i], massSum, collision, 1);

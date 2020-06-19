@@ -22,7 +22,7 @@ namespace Cgame
             this.range = range;
             Sprite = new Sprite(this, "bullet");
             Layer = Layer.Player;
-            Collider = new Collider(this, 16, 16);
+            Collider = new Collider(16, 16);
             Mass = 0.05f;
             Position = start + new Vector3(50,0,0);
             var normalized = direction.Normalized();

@@ -48,7 +48,7 @@ namespace Cgame
         {
             IsAlive = true;
             Sprite = new Sprite(this, new[] { "player1", "player2"});
-            Collider = new Collider(this, 48, 48);
+            Collider = new Collider(48, 48);
             Layer = Layer.Player;
             Mass = 10;
             Velocity = new Vector2(defaultSpeedX,0);

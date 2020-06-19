@@ -33,15 +33,18 @@ namespace Cgame.Core
         /// <summary>
         /// Список всех вершин коллайдера в глобальной системе координат.
         /// </summary>
-        public List<Vector2> Vertices => vertices
-                    .Select(vert => vert * RotateCollider)
-                    .Select(vert => vert + new Vector3(Position.X, Position.Y, 0))
-                    .Select(vert => vert.Xy)
-                    .ToList();
+        public List<Vector2> GlobalVertices => vertices
+            .Select(vert => vert * RotateCollider)
+            .Select(vert => vert + new Vector3(position.X, position.Y, 0))
+            .Select(vert => vert * RotateObject)
+            .Select(vert => vert + GameObjectPosition)
+            .Select(vert => vert.Xy)
+            .ToList();
 
+        private Vector3 GameObjectPosition => gameObject is null ? Vector3.Zero : new Vector3(gameObject.Position.X, gameObject.Position.Y, 0);
         private Matrix3 RotateCollider => Matrix3.CreateRotationZ(MathHelper.DegreesToRadians(Angle));
         private Matrix3 RotateObject => Matrix3.CreateRotationZ(MathHelper.DegreesToRadians(gameObject.Angle));
-        private GameObject gameObject;
+        private readonly GameObject gameObject;
         private Vector2 position;
         private readonly List<Vector3> vertices = new List<Vector3>();
 
@@ -51,9 +54,11 @@ namespace Cgame.Core
         /// <param name="gameObject">Обект-родитель коллайдера.</param>
         /// <param name="radius">Радиус коллайдера.</param>
         /// <param name="position">Позиция центра коллайдера в системе координат объекта.</param>
-        public Collider(GameObject gameObject, float radius, Vector2 position = default)
+        public Collider(float radius, Vector2 position = default, bool trigger = false)
         {
-            Init(gameObject, position, 0);
+            this.position = position;
+            IsTrigger = trigger;
+            Angle = 0;
             Radius = radius;
         }
 
@@ -65,9 +70,11 @@ namespace Cgame.Core
         /// <param name="width">Ширина.</param>
         /// <param name="position">Позиция центра коллайдера в системе координат объекта.</param>
         /// <param name="angle">Угол поворотаколлайдера относительно его центра.</param>
-        public Collider(GameObject gameObject, float height, float width, Vector2 position = default, float angle = 0)
+        public Collider(float height, float width, Vector2 position = default, float angle = 0, bool trigger = false)
         {
-            Init(gameObject, position, angle);
+            this.position = position;
+            IsTrigger = trigger;
+            Angle = angle;
             vertices = new List<Vector3>
             {
                 new Vector3(-width / 2, height / 2, 0),
@@ -85,9 +92,11 @@ namespace Cgame.Core
         /// <param name="vertices">Список вершин. Перечисление по часовой стрелке.</param>
         /// <param name="position">Позиция центра коллайдера в системе координат объекта.</param>
         /// <param name="angle">Угол поворотаколлайдера относительно его центра.</param>
-        public Collider(GameObject gameObject, List<Vector2> vertices, Vector2 position = default, float angle = 0)
+        public Collider(List<Vector2> vertices, Vector2 position = default, float angle = 0, bool trigger = false)
         {
-            Init(gameObject, position, angle);
+            this.position = position;
+            IsTrigger = trigger;
+            Angle = angle;
             this.vertices = vertices
                 .Select(vert => new Vector3(vert.X, vert.Y, 0))
                 .ToList();
@@ -96,31 +105,43 @@ namespace Cgame.Core
                 .Max();
         }
 
+        private Collider(GameObject gameObject, List<Vector3> vertices, Vector2 position, float radius, float angle, bool trigger = false)
+        {
+            this.gameObject = gameObject;
+            this.position = position;
+            this.vertices = vertices;
+            IsTrigger = trigger;
+            Radius = radius;
+            Angle = angle;
+        }
+
+        public Collider BindToGameObject(GameObject gameObject)
+        {
+            return new Collider(gameObject, vertices, position, Radius, Angle);
+        }
+
         /// <summary>
         /// Возвращает список нормалей ко всем граням коллайдера.
         /// </summary>
         /// <returns></returns>
         public IEnumerable<Vector2> GetNornals()
         {
-            var vertices = Vertices;
+            var vertices = GlobalVertices;
             for (var i = 0; i < vertices.Count; i++)
             {
                 yield return (vertices[i] - vertices[(i + 1) % vertices.Count]).PerpendicularLeft.Normalized();
             }
         }
 
-        private void Init(GameObject gameObject, Vector2 position, float angle)
-        {
-            this.gameObject = gameObject;
-            this.position = position;
-            Angle = angle;
-        }
-
         public static Collision Collide(Collider firstCollider, Collider secondCollider)
         {
             if (firstCollider.Radius + secondCollider.Radius <= Vector2.Distance(firstCollider.Position, secondCollider.Position))
                 return Collision.FalseCollision;
-            if (firstCollider.Vertices.Count == 0 && secondCollider.Vertices.Count == 0)
+
+            var firstVertices = firstCollider.GlobalVertices;
+            var secondVertices = secondCollider.GlobalVertices;
+
+            if (firstVertices.Count == 0 && secondVertices.Count == 0)
             {
                 return new Collision(
                     (firstCollider.Position - secondCollider.Position).Normalized(),
@@ -167,7 +188,7 @@ namespace Cgame.Core
 
         private static Vector2 GetProjection(Vector2 vector, Collider collider)
         {
-            var vertices = collider.Vertices;
+            var vertices = collider.GlobalVertices;
             Vector2 result = default;
 
             if (vertices.Count == 0)
