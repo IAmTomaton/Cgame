@@ -10,35 +10,24 @@ namespace Cgame.Core
 {
     class SpaceUpdater : ISpaceUpdater
     {
-        public float DelayTime { get; private set; }
-        public ISpaceStore Space { get; }
-
-        public SpaceUpdater(ISpaceStore space)
+        public SpaceUpdater()
         {
-            Space = space;
+
         }
 
-        public Camera Camera => Space.Camera;
-
-        public IEnumerable<Sprite> GetSprites() => Space.GetGameObjects().Select(o => o.Sprite);
-
-        public void Resize(int width, int height) => Space.Resize(width, height);
-
-        public void Update(float delayTime)
+        public void Update(List<GameObject> gameObjects, float delayTime)
         {
-            DelayTime = delayTime;
-            MoveGameObjects(delayTime);
-            UpdateGameObjects();
-            Space.Update();
-            CollisionCheck();
+            MoveGameObjects(gameObjects, delayTime);
+            UpdateGameObjects(gameObjects);
+            CollisionCheck(gameObjects);
         }
 
         /// <summary>
         /// Перемещает все игровые объекты в соответствии с их скоростью.
         /// </summary>
-        private void MoveGameObjects(float delayTime)
+        private void MoveGameObjects(List<GameObject> gameObjects, float delayTime)
         {
-            foreach (var gameObject in Space.GetGameObjects())
+            foreach (var gameObject in gameObjects)
                 MoveGameObject(gameObject, delayTime);
         }
 
@@ -53,9 +42,9 @@ namespace Cgame.Core
         /// <summary>
         /// Обновляет все игровые объекты.
         /// </summary>
-        private void UpdateGameObjects()
+        private void UpdateGameObjects(List<GameObject> gameObjects)
         {
-            foreach (var gameObject in Space.GetGameObjects())
+            foreach (var gameObject in gameObjects)
                 gameObject.Update();
             ConsoleControl.Update();
             ConsoleListener.Update();
@@ -65,9 +54,9 @@ namespace Cgame.Core
         /// <summary>
         /// Проверяет столкновения для всех сталкиваемых игровых объектах.
         /// </summary>
-        private void CollisionCheck()
+        private void CollisionCheck(List<GameObject> gameObjects)
         {
-            var objects = Space.GetCollidingObjects().ToList();
+            var objects = gameObjects.Where(o => o.IsColliding).ToList();
             for (var i = 0; i < objects.Count; i++)
                 for (var j = i + 1; j < objects.Count; j++)
                 {
@@ -103,11 +92,6 @@ namespace Cgame.Core
             var ratio = massSum == gameObject.Mass ? 1 : (massSum - gameObject.Mass) / massSum;
             var delta = collision.Mtv * ratio * collision.MtvLength;
             gameObject.Position += new Vector3(delta) * revers;
-        }
-
-        public void Start()
-        {
-            Space.Start();
         }
     }
 }

@@ -15,11 +15,6 @@ namespace Cgame.Core.Interfaces
         /// <returns></returns>
         IEnumerable<GameObject> GetGameObjects();
         /// <summary>
-        /// Возвращает все сталкиваемые объекты пространства.
-        /// </summary>
-        /// <returns></returns>
-        IEnumerable<GameObject> GetCollidingObjects();
-        /// <summary>
         /// Устанавливает размеры камеры
         /// </summary>
         /// <param name="width"></param>

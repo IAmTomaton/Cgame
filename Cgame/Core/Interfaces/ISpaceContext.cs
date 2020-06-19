@@ -11,6 +11,7 @@ namespace Cgame.Core.Interfaces
     /// </summary>
     public interface ISpaceContext
     {
+        void ClearGlobals();
         void ClearLocals();
         /// <summary>
         /// Добавляет локальный объект в пространство.

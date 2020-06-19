@@ -1,4 +1,5 @@
 ﻿using Cgame.Core.Interfaces;
+using System;
 using System.Windows.Input;
 
 namespace Cgame.Core
@@ -12,22 +13,30 @@ namespace Cgame.Core
         /// <summary>
         /// Игровое пространство.
         /// </summary>
-        public static ISpaceContext Space => IsInitialized ? SpaceUpdater.Space : null;
-        /// <summary>
-        /// Апдейтер игрового пространства.
-        /// </summary>
-        public static ISpaceUpdater SpaceUpdater { get; private set; }
+        public static ISpaceContext Space
+        {
+            get { return IsInitialized ? space : throw new Exception(exceptionText + "Space"); }
+        }
         /// <summary>
         /// Промежуток времени прошедший с последнего обновления.
         /// </summary>
-        public static float DelayTime => IsInitialized ? SpaceUpdater.DelayTime : 0 ;
+        public static float DelayTime { get; private set; }
         public static KeyboardDevice KeyboardDevice => Keyboard.PrimaryDevice;
         public static MouseDevice MouseDevice => Mouse.PrimaryDevice;
 
-        public static void Init(ISpaceUpdater spaceUpdater)
+        private static ISpaceContext space;
+        private static string exceptionText =
+            "Доступ к полю GameContext, до его инициализации. Убедитесь что вы обращаетесь к полю только внутри методов Update или Start. Поле: ";
+
+        public static void Init(ISpaceContext spaceContext)
         {
-            SpaceUpdater = spaceUpdater;
+            space = spaceContext;
             IsInitialized = true;
+        }
+
+        public static void Update(float delayTime)
+        {
+            DelayTime = delayTime;
         }
     }
 }

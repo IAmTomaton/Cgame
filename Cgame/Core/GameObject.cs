@@ -4,6 +4,7 @@ namespace Cgame.Core
 {
     public abstract class GameObject
     {
+        public bool IsColliding => Collider != null && Collider.IsColliding;
         //GameObject Copy();
         /// <summary>
         /// Спрайт объекта.

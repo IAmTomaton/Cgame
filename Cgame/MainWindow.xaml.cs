@@ -30,7 +30,7 @@ namespace Cgame
     /// </summary>
     public partial class MainWindow : Window
     {
-        private IGame game;
+        private Game game;
         private readonly Timer timer = new Timer(10);
 
         public MainWindow()
@@ -42,7 +42,7 @@ namespace Cgame
         private StandardKernel GetConteiner()
         {
             var conteiner = new StandardKernel();
-            conteiner.Bind<IGame>().To<Game>();
+            conteiner.Bind<Game>().To<Game>();
             conteiner.Bind<Size>().ToConstant(new Size(gLControl.Width, gLControl.Height));
             conteiner.Bind<Shader>().ToConstant(new Shader("Resources/Shaders/shader.vert", "Resources/Shaders/shader.frag"));
             conteiner.Bind<ITextureLibrary>().To<TextureLibrary>();
@@ -50,7 +50,7 @@ namespace Cgame
             conteiner.Bind<Grid>().ToConstant(GUI);
             conteiner.Bind<ISpaceUpdater>().To<SpaceUpdater>();
             conteiner.Bind<IPainter>().To<Painter>();
-            conteiner.Bind<ISpaceStore>().To<Space>();
+            conteiner.Bind<ISpaceStore>().To<Space>().InSingletonScope();
             conteiner.Bind<Camera>().ToSelf();
             return conteiner;
         }
@@ -62,7 +62,7 @@ namespace Cgame
 
         private void GLControl_Load(object sender, EventArgs e)
         {
-            game = GetConteiner().Get<IGame>();
+            game = GetConteiner().Get<Game>();
             game.Start();
             timer.Elapsed += (_, __) => gLControl.Invalidate();
             timer.Start();
