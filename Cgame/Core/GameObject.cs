@@ -4,6 +4,7 @@ namespace Cgame.Core
 {
     public abstract class GameObject
     {
+        public bool IsColliding => Collider != null && Collider.IsColliding;
         //GameObject Copy();
         /// <summary>
         /// Спрайт объекта.
@@ -36,19 +37,16 @@ namespace Cgame.Core
         /// <summary>
         /// Вызывается единственный раз для экземпляра, сразу после добавления в пространство.
         /// </summary>
-        /// <param name="updateContext"></param>
         public virtual void Start() { }
 
         /// <summary>
         /// Вызывается на каждом обновлении пространства.
         /// </summary>
-        /// <param name="updateContext"></param>
         public virtual void Update() { }
 
         /// <summary>
         /// Вызывается если произошла коллизия.
         /// </summary>
-        /// <param name="updateContext"></param>
         /// <param name="other">Объект с которым произошла коллизия.</param>
         public virtual void Collision(GameObject other) { }
     }

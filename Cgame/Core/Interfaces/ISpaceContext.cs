@@ -11,7 +11,8 @@ namespace Cgame.Core.Interfaces
     /// </summary>
     public interface ISpaceContext
     {
-        //IUpdateContext Copy();
+        void ClearGlobals();
+        void ClearLocals();
         /// <summary>
         /// Добавляет локальный объект в пространство.
         /// Локальные объекты удаляются при переходе между сценами.
@@ -80,10 +81,6 @@ namespace Cgame.Core.Interfaces
         /// </summary>
         /// <param name="gameObject"></param>
         void BindGameObjectToCamera(GameObject gameObject);
-        /// <summary>
-        /// Промежуток времени прошедший с последнего обновления.
-        /// </summary>
-        float DelayTime { get; }
         /// <summary>
         /// Добавляет элемент UI к корневому Grid.
         /// </summary>

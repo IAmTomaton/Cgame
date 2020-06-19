@@ -12,7 +12,6 @@ namespace Cgame
 {
     class Bullet : GameObject
     {
-        private static float defaultSpeedX = 5f;
         private Vector3 startPosition;
         private float range;
         private Player player;

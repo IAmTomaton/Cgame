@@ -1,30 +1,39 @@
 ﻿using Cgame.Core.Interfaces;
+using System.Linq;
 
 namespace Cgame.Core
 {
-    class Game : IGame
+    class Game
     {
-        private readonly ISpace space;
+        private readonly ISpaceUpdater spaceUpdater;
+        private readonly ISpaceStore spaceStore;
         private readonly IPainter painter;
 
-        public Game(ISpace space, IPainter painter)
+        public Game(ISpaceUpdater spaceUpdater, ISpaceStore spaceStore, IPainter painter)
         {
-            this.space = space;
+            this.spaceUpdater = spaceUpdater;
+            this.spaceStore = spaceStore;
             this.painter = painter;
-            GameContext.Init(space);
         }
 
         public void Resize(int width, int height)
         {
-            space.Resize(width, height);
+            spaceStore.Resize(width, height);
+        }
+
+        public void Start()
+        {
+            GameContext.Init(spaceStore);
+            spaceStore.Start();
         }
 
         public void Update(float delayTime)
         {
-            space.Update(delayTime);
-            painter.Draw(space.GetSprites(), space.Camera);
+            GameContext.Update(delayTime);
+            spaceStore.Update();
+            spaceUpdater.Update(spaceStore.GetGameObjects().ToList(), delayTime);
+            var sprites = spaceStore.GetGameObjects().Where(o => o.Sprite != null).Select(o => o.Sprite);
+            painter.Draw(sprites, spaceStore.Camera);
         }
-
-
     }
 }
