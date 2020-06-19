@@ -25,8 +25,8 @@ namespace Cgame.Core
         private Queue<GameObject> globalObjectsToAdd = new Queue<GameObject>();
         private Queue<GameObject> localObjectsToAdd = new Queue<GameObject>();
 
-        private List<GameObject> globalObjects = new List<GameObject>();
-        private List<GameObject> localObjects = new List<GameObject>();
+        private HashSet<GameObject> globalObjects = new HashSet<GameObject>();
+        private HashSet<GameObject> localObjects = new HashSet<GameObject>();
 
         public Space(Camera camera, Grid gui)
         {
@@ -47,14 +47,14 @@ namespace Cgame.Core
         {
             localObjectsToDelete = new Queue<GameObject>();
             localObjectsToAdd = new Queue<GameObject>();
-            localObjects = new List<GameObject>();
+            localObjects = new HashSet<GameObject>();
         }
 
         public void ClearGlobals()
         {
             globalObjectsToDelete = new Queue<GameObject>();
             globalObjectsToAdd = new Queue<GameObject>();
-            globalObjects = new List<GameObject>();
+            globalObjects = new HashSet<GameObject>();
         }
 
         public void Resize(int width, int height)
@@ -89,7 +89,7 @@ namespace Cgame.Core
                 AddObjectTo(localObjectsToAdd.Dequeue(), localObjects);
         }
 
-        private void AddObjectTo(GameObject gameObject, List<GameObject> gameObjects)
+        private void AddObjectTo(GameObject gameObject, HashSet<GameObject> gameObjects)
         {
             if (LocalObjectExistence(gameObject) || GlobalObjectExistence(gameObject))
                 return;
@@ -126,7 +126,7 @@ namespace Cgame.Core
             }
         }
 
-        private void DeleteObjectFrom(GameObject gameObject, List<GameObject> gameObjects)
+        private void DeleteObjectFrom(GameObject gameObject, HashSet<GameObject> gameObjects)
         {
             if (gameObjects.Contains(gameObject))
                 gameObjects.Remove(gameObject);
