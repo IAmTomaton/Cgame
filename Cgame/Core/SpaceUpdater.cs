@@ -73,8 +73,8 @@ namespace Cgame.Core
                         DisplacementObjectAfterCollision(objects[i], massSum, collision, 1);
                         DisplacementObjectAfterCollision(objects[j], massSum, collision, -1);
                     }
-                    objects[i].Collision(objects[j]);
-                    objects[j].Collision(objects[i]);
+                    objects[i].OnCollision(objects[j]);
+                    objects[j].OnCollision(objects[i]);
                 }
         }
 

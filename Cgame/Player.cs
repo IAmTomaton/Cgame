@@ -77,7 +77,7 @@ namespace Cgame
             base.Start();
         }
 
-        public override void Collision(GameObject other)
+        public override void OnCollision(GameObject other)
         {
             if (other.Mass == 0)
             {
@@ -94,7 +94,7 @@ namespace Cgame
                 Velocity = vert_acc = horiz_acc = new Vector2(0,0);
             }
 
-            base.Collision(other);
+            base.OnCollision(other);
         }
 
         /// <summary>
@@ -139,7 +139,7 @@ namespace Cgame
                 Console.WriteLine(res.ToString());
                 if (res.Length <= 300)
                 {
-                    GameContext.Space.DeleteLocalObject(objectsToShoot.ElementAt(0));
+                    objectsToShoot.ElementAt(0).Destroy();
                 }
             }
         }

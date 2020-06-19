@@ -50,21 +50,6 @@ namespace Cgame.Core.Interfaces
         /// <returns></returns>
         IEnumerable<T> FindGlobalObject<T>();
         /// <summary>
-        /// Удаляет локальный объект из пространства.
-        /// </summary>
-        /// <param name="gameObject"></param>
-        void DeleteLocalObject(GameObject gameObject);
-        /// <summary>
-        /// Удаляет глобальный объект из пространства.
-        /// </summary>
-        /// <param name="gameObject"></param>
-        void DeleteGlobalObject(GameObject gameObject);
-        /// <summary>
-        /// Удаляет объект из пространства.
-        /// </summary>
-        /// <param name="gameObject"></param>
-        void DeleteObject(GameObject gameObject);
-        /// <summary>
         /// Определяет, существует ли локальный объект в пространстве.
         /// </summary>
         /// <param name="gameObject"></param>

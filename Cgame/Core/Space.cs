@@ -19,9 +19,6 @@ namespace Cgame.Core
         public Camera Camera { get; private set; }
         public Grid GUI { get; private set; }
 
-        private Queue<GameObject> objectsToDelete = new Queue<GameObject>();
-        private Queue<GameObject> globalObjectsToDelete = new Queue<GameObject>();
-        private Queue<GameObject> localObjectsToDelete = new Queue<GameObject>();
         private Queue<GameObject> globalObjectsToAdd = new Queue<GameObject>();
         private Queue<GameObject> localObjectsToAdd = new Queue<GameObject>();
 
@@ -45,14 +42,12 @@ namespace Cgame.Core
 
         public void ClearLocals()
         {
-            localObjectsToDelete = new Queue<GameObject>();
             localObjectsToAdd = new Queue<GameObject>();
             localObjects = new HashSet<GameObject>();
         }
 
         public void ClearGlobals()
         {
-            globalObjectsToDelete = new Queue<GameObject>();
             globalObjectsToAdd = new Queue<GameObject>();
             globalObjects = new HashSet<GameObject>();
         }
@@ -68,17 +63,25 @@ namespace Cgame.Core
             Camera.GameObject = gameObject;
         }
 
-        public void AddLocalObject(GameObject gameObject) => localObjectsToAdd.Enqueue(gameObject);
-        public void AddGlobalObject(GameObject gameObject) => globalObjectsToAdd.Enqueue(gameObject);
+        public void AddLocalObject(GameObject gameObject) => AddGameObjectTo(gameObject, localObjectsToAdd);
+        public void AddGlobalObject(GameObject gameObject) => AddGameObjectTo(gameObject, globalObjectsToAdd);
+
         public void AddLocalObjects(IEnumerable<GameObject> gameObjects)
         {
             foreach (var gameObject in gameObjects)
-                localObjectsToAdd.Enqueue(gameObject);
+                AddGameObjectTo(gameObject, localObjectsToAdd);
         }
+
         public void AddGlobalObjects(IEnumerable<GameObject> gameObjects)
         {
             foreach (var gameObject in gameObjects)
-                globalObjectsToAdd.Enqueue(gameObject);
+                AddGameObjectTo(gameObject, globalObjectsToAdd);
+        }
+
+        private void AddGameObjectTo(GameObject gameObject, Queue<GameObject> gameObjects)
+        {
+            if (gameObject is null) throw new ArgumentNullException("Добавляемый GameObject не может быть null.");
+            gameObjects.Enqueue(gameObject);
         }
 
         private void AddGameObjects()
@@ -108,40 +111,22 @@ namespace Cgame.Core
             return objects.Where(obj => obj is T).Cast<T>();
         }
 
-        public void DeleteLocalObject(GameObject gameObject) => localObjectsToDelete.Enqueue(gameObject);
-        public void DeleteGlobalObject(GameObject gameObject) => globalObjectsToDelete.Enqueue(gameObject);
-        public void DeleteObject(GameObject gameObject) => objectsToDelete.Enqueue(gameObject);
-
         private void DeleteGameObjects()
         {
-            while (globalObjectsToDelete.Count > 0)
-                DeleteObjectFrom(globalObjectsToDelete.Dequeue(), globalObjects);
-            while (localObjectsToDelete.Count > 0)
-                DeleteObjectFrom(localObjectsToDelete.Dequeue(), localObjects);
-            while (objectsToDelete.Count > 0)
-            {
-                var toDelete = objectsToDelete.Dequeue();
-                DeleteObjectFrom(toDelete, localObjects);
-                DeleteObjectFrom(toDelete, globalObjects);
-            }
-        }
-
-        private void DeleteObjectFrom(GameObject gameObject, HashSet<GameObject> gameObjects)
-        {
-            if (gameObjects.Contains(gameObject))
-                gameObjects.Remove(gameObject);
+            localObjects.RemoveWhere(o => !o.Alive);
+            globalObjects.RemoveWhere(o => !o.Alive);
         }
 
         public void AddUIElement(UIElement element)
         {
-            if (!GUI.Children.Contains(element))
-                GUI.Children.Add(element);
+            if (element is null) throw new ArgumentNullException("Добавляемый UI элемент не может быть null.");
+            if (!GUI.Children.Contains(element)) GUI.Children.Add(element);
         }
 
         public void RemoveUIElement(UIElement element)
         {
-            if (GUI.Children.Contains(element))
-                GUI.Children.Remove(element);
+            if (element is null) throw new ArgumentNullException("Удаляемый UI элемент не может быть null.");
+            if (GUI.Children.Contains(element)) GUI.Children.Remove(element);
         }
 
         public void Start()

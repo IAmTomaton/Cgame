@@ -68,7 +68,7 @@ namespace Cgame
                     if (gameObjectsStack.Count() != 0)
                     {
                         var lastObj = gameObjectsStack.Pop();
-                        GameContext.Space.DeleteObject(lastObj);
+                        lastObj.Destroy();
                     }
                     else Console.WriteLine("some mistake in scene command(add/delete)");
                     break;
