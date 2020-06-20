@@ -17,11 +17,11 @@ namespace Cgame.Core
         /// <summary>
         /// Угол поворока коллайдера, относительно его центра.
         /// </summary>
-        public float Angle { get; }
+        public float Angle { get; set; }
         /// <summary>
         /// Позиция центра коллайдера в глобальной системе координат.
         /// </summary>
-        public Vector2 Position { get; }
+        public Vector2 Position { get; set; }
         /// <summary>
         /// Радиус коллайдера. Указывает минимальный радиус круга с центром в центре коллайдера и содержащий все его точки.
         /// </summary>
@@ -29,7 +29,7 @@ namespace Cgame.Core
         /// <summary>
         /// Указывает является ли коллайдер триггером. Триггеры не участвуют в столкновениях, но вызов метода Collision происходит.
         /// </summary>
-        public bool IsTrigger { get; }
+        public bool IsTrigger { get; set; }
         /// <summary>
         /// Список всех вершин коллайдера в глобальной системе координат.
         /// </summary>
@@ -102,18 +102,37 @@ namespace Cgame.Core
             Angle = angle;
         }
 
-        public Collider TransformToGameObject(GameObject gameObject)
+        /// <summary>
+        /// Возвращает новый коллайдер который перемещён аналогично объекту.
+        /// </summary>
+        /// <param name="gameObject"></param>
+        /// <returns></returns>
+        public Collider TransformToGameObject(GameObject gameObject) => Transform(gameObject.Position.Xy, gameObject.Angle);
+
+        /// <summary>
+        /// Копирует коллайдер.
+        /// </summary>
+        /// <returns></returns>
+        public Collider Copy() => Transform(Vector2.Zero, 0);
+
+        /// <summary>
+        /// Возвращает новый коллайдер перемещённый на вектор move и повёрнутый вокруг этой точки.
+        /// </summary>
+        /// <param name="move"></param>
+        /// <param name="rotate"></param>
+        /// <returns></returns>
+        public Collider Transform(Vector2 move, float rotate)
         {
             var rotateCollider = Matrix3.CreateRotationZ(MathHelper.DegreesToRadians(Angle));
-            var rotateObject = Matrix3.CreateRotationZ(MathHelper.DegreesToRadians(gameObject.Angle));
-            var objectPosition = new Vector3(gameObject.Position.X, gameObject.Position.Y, 0);
+            var rotateObject = Matrix3.CreateRotationZ(MathHelper.DegreesToRadians(rotate));
+            var objectPosition = new Vector3(move.X, move.Y, 0);
             return new Collider(vertices
                 .Select(vert => vert * rotateCollider)
                 .Select(vert => vert + new Vector3(Position.X, Position.Y, 0))
                 .Select(vert => vert * rotateObject)
                 .Select(vert => vert + objectPosition)
                 .ToList(),
-                (new Vector3(Position) * rotateObject + gameObject.Position).Xy,
+                (new Vector3(Position) * rotateObject + new Vector3(move)).Xy,
                 Radius,
                 Angle);
         }
