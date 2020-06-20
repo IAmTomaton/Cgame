@@ -62,8 +62,8 @@ namespace Cgame.Core
                     if (objects[i].Collider is null || objects[j].Collider is null)
                         continue;
 
-                    var firstCollider = objects[i].Collider.BindToGameObject(objects[i]);
-                    var secondCollider = objects[j].Collider.BindToGameObject(objects[j]);
+                    var firstCollider = objects[i].Collider.TransformToGameObject(objects[i]);
+                    var secondCollider = objects[j].Collider.TransformToGameObject(objects[j]);
 
                     var collision = Collider.Collide(firstCollider, secondCollider);
                     if (!collision.Collide)
