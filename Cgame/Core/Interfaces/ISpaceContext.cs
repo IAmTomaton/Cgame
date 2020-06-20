@@ -48,6 +48,12 @@ namespace Cgame.Core.Interfaces
         /// <returns></returns>
         IEnumerable<T> FindGlobalObject<T>();
         /// <summary>
+        /// Возвращает все объекты указанного типа в пространстве.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        IEnumerable<T> FindObject<T>();
+        /// <summary>
         /// Определяет, существует ли локальный объект в пространстве.
         /// </summary>
         /// <param name="gameObject"></param>

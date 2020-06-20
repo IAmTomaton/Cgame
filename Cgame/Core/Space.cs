@@ -103,6 +103,7 @@ namespace Cgame.Core
 
         public IEnumerable<T> FindLocalObject<T>() => FindObjectIn<T>(localObjects);
         public IEnumerable<T> FindGlobalObject<T>() => FindObjectIn<T>(globalObjects);
+        public IEnumerable<T> FindObject<T>() => FindObjectIn<T>(GetGameObjects());
 
         private IEnumerable<T> FindObjectIn<T>(IEnumerable<GameObject> objects)
         {

@@ -25,7 +25,7 @@ namespace Cgame.Core
         public static MouseDevice MouseDevice => Mouse.PrimaryDevice;
 
         private static ISpaceContext space;
-        private static string exceptionText =
+        private static readonly string exceptionText =
             "Доступ к полю GameContext, до его инициализации. Убедитесь что вы обращаетесь к полю только внутри методов Update или Start. Поле: ";
 
         public static void Init(ISpaceContext spaceContext)
