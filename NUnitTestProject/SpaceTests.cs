@@ -3,8 +3,10 @@ using Cgame.Core;
 
 namespace NUnitTestProject
 {
-    public class Tests
+    public class SpaceTests
     {
+        private Space space;
+
         [SetUp]
         public void Setup()
         {
@@ -14,7 +16,7 @@ namespace NUnitTestProject
         [Test]
         public void TestCollider()
         {
-
+            
         }
     }
 }

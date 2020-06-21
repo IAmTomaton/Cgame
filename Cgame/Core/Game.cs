@@ -8,12 +8,14 @@ namespace Cgame.Core
         private readonly ISpaceUpdater spaceUpdater;
         private readonly ISpaceStore spaceStore;
         private readonly IPainter painter;
+        private readonly IGUIManager GUIManager;
 
-        public Game(ISpaceUpdater spaceUpdater, ISpaceStore spaceStore, IPainter painter)
+        public Game(ISpaceUpdater spaceUpdater, ISpaceStore spaceStore, IPainter painter, IGUIManager GUIManager)
         {
             this.spaceUpdater = spaceUpdater;
             this.spaceStore = spaceStore;
             this.painter = painter;
+            this.GUIManager = GUIManager;
         }
 
         public void Resize(int width, int height)
@@ -23,7 +25,7 @@ namespace Cgame.Core
 
         public void Start()
         {
-            GameContext.Init(spaceStore);
+            GameContext.Init(spaceStore, GUIManager);
             spaceStore.Start();
         }
 

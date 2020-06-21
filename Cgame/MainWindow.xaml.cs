@@ -48,6 +48,7 @@ namespace Cgame
             conteiner.Bind<ITextureLibrary>().To<TextureLibrary>();
             conteiner.Bind<GLControl>().ToConstant(gLControl);
             conteiner.Bind<Grid>().ToConstant(GUI);
+            conteiner.Bind<IGUIManager>().To<GUIManager>();
             conteiner.Bind<ISpaceUpdater>().To<SpaceUpdater>();
             conteiner.Bind<IPainter>().To<Painter>();
             conteiner.Bind<ISpaceStore>().To<Space>().InSingletonScope();

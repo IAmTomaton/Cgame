@@ -73,6 +73,8 @@
     <Compile Include="ConsoleListener.cs" />
     <Compile Include="Core\AirspacePopup.cs" />
     <Compile Include="Core\Game.cs" />
+    <Compile Include="Core\GUIManager.cs" />
+    <Compile Include="Core\Interfaces\IGUIManager.cs" />
     <Compile Include="Core\Interfaces\IPainter.cs" />
     <Compile Include="Core\Interfaces\ISpaceStore.cs" />
     <Compile Include="Core\Interfaces\ISpaceUpdater.cs" />
