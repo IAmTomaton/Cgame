@@ -57,7 +57,7 @@ namespace Cgame
             return newObject;
         }
 
-        public void AddActions(string[] commandParts, GameObject newObject)
+        public GameObject AddActions(string[] commandParts, GameObject newObject)
         {
             newObject = CreateObjectToAdd(commandParts);
             if (newObject != null)
@@ -70,6 +70,7 @@ namespace Cgame
                     Console.WriteLine("wrong command.need local/global");
             }
             else Console.WriteLine("null object created");
+            return newObject;
         }
 
         public void CancelActions()
@@ -89,8 +90,8 @@ namespace Cgame
             switch (commandParts[0])
             {
                 case "add":
-                    AddActions(commandParts,newObject);
-                    return (true, newObject);
+                    var obj = AddActions(commandParts,newObject);
+                    return (true, obj);
                 case "cancel":
                     CancelActions();
                     return (false, newObject);

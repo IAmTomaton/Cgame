@@ -14,8 +14,8 @@ namespace Cgame
     {
         private static List<string> scenes = new List<string>
         {
-            "Resources/Scenes/scene2.txt"
-            //"Resources/Scenes/scene1.txt"
+            "Resources/Scenes/scene2.txt",
+            "Resources/Scenes/scene1.txt"
         };
         private static int currentSceneNumber = -1;
         private static Scene currentScene = null;

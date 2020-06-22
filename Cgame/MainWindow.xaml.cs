@@ -65,10 +65,6 @@ namespace Cgame
         private readonly Timer timer = new Timer(10);
         public static StandardKernel Conteiner { get; private set; }
 
-        static MainWindow()
-        {
-        }
-
         public MainWindow()
         {
             InitializeComponent();
