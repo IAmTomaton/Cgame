@@ -80,7 +80,7 @@
     <Compile Include="Core\Interfaces\ISpaceStore.cs" />
     <Compile Include="Core\Interfaces\ISpaceUpdater.cs" />
     <Compile Include="Core\Interfaces\ITextureLibrary.cs" />
-    <Compile Include="Core\Painter.cs" />
+    <Compile Include="Core\Graphic\Painter.cs" />
     <Compile Include="Core\Physics\ColliderExtensions.cs" />
     <Compile Include="Core\SpaceUpdater.cs" />
     <Compile Include="Core\SpriteExtension.cs" />
@@ -101,7 +101,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ConsoleControl.cs" />
-    <Compile Include="Core\Camera.cs" />
+    <Compile Include="Core\Graphic\Camera.cs" />
     <Compile Include="Core\Physics\Collider.cs" />
     <Compile Include="Core\Physics\Collision.cs" />
     <Compile Include="Core\GameContext.cs" />
@@ -109,9 +109,9 @@
     <Compile Include="Core\Interfaces\ISpaceContext.cs" />
     <Compile Include="Core\LayerSettings.cs" />
     <Compile Include="Core\Graphic\Primitive.cs" />
-    <Compile Include="Core\Shader.cs" />
+    <Compile Include="Core\Graphic\Shader.cs" />
     <Compile Include="Core\Space.cs" />
-    <Compile Include="Core\Sprite.cs" />
+    <Compile Include="Core\Graphic\Sprite.cs" />
     <Compile Include="Core\Graphic\Texture.cs" />
     <Compile Include="Core\Graphic\TextureLibrary.cs" />
     <Compile Include="Core\WindowSettings.cs" />

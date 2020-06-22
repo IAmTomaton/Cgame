@@ -1,6 +1,6 @@
 ﻿using OpenTK;
 
-namespace Cgame.Core
+namespace Cgame.Core.Graphic
 {
     /// <summary>
     /// Содержит информации для отрисовки объекта.

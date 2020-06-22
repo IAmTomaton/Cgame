@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Cgame.Core;
+using Cgame.Core.Graphic;
 using Cgame.Interfaces;
 using OpenTK;
 using OpenTK.Input;

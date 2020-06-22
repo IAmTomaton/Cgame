@@ -11,6 +11,7 @@ using OpenTK.Input;
 using System.Windows.Input;
 using Key = System.Windows.Input.Key;
 using System.Windows.Controls;
+using Cgame.Core.Graphic;
 
 namespace Cgame
 {

@@ -1,4 +1,5 @@
 ﻿using Cgame.Core;
+using Cgame.Core.Graphic;
 using Cgame.Interfaces;
 using OpenTK;
 

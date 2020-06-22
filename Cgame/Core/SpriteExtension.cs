@@ -1,4 +1,5 @@
-﻿using OpenTK;
+﻿using Cgame.Core.Graphic;
+using OpenTK;
 
 namespace Cgame.Core
 {
