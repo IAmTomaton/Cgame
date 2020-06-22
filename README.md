@@ -2,62 +2,63 @@
 
 2D игра/игровой движок на C#
 	
-Управление: W – прыжок, Z – выстрел, K – открыть или спрятать консоль(отладка, редактирование сцен)
-<<<<<<< HEAD
+2D игра/игровой движок на C#
 
-Консоль также можно закрыть написав в ней end
+Управление: 
 
-Формат команды для редактирования сцены:
+W – прыжок, Z – выстрел, 
+K – открыть или спрятать консоль(отладка, редактирование сцен). 
+Консоль можно закрыть написав в ней end
 
-=======
-консоль также можно закрыть написав в ней end
-формат команды для редактирования сцены:
->>>>>>> 63931f9c34dec4d71901595b6d369bab825530de
+Задача игрока не упасть с платформы и не столкнуться с препятствием. Некоторые препятствия можно уничтожить выстрелом.
+
+Формат команды для редактирования сцены в консоли:
+
 add local/global <имя объекта> <параметры> или cancel для отмены предыдущей команды
-	
-Для визуализации используется OpenGL4.
 
-В визуалке возможно придётся установить следующие пакеты:
-OpenTK
-OpenTK.Control
-Ninject
+Для визуализации используется OpenGL4 и .WPF
+
+В Visual Studio возможно придётся установить следующие пакеты: 
+OpenTK 
+OpenTK.Control 
+Ninject 
+Ninject.Extensions.Factory;
+
 
 # Точки раcширения:
-	Можно с помощью Ninject и интерфейсов IGame, ISpace, IPainter, ITextureLibrary изменить внутреннюю логику движка.
-	Создание новых объектов происходит за счёт наследования от абстрактного класса GameObject.
-	Добавления новых текстур, добавление новых сцен.
-	Cоздание новых интерфейсов в одном ряду c IKilling и IShootable, написание собственных коллайдеров
+
+Создание новых объектов за счёт наследования от абстрактного класса GameObject и связывания Ninject в точке сбора зависимостей.
+
+https://github.com/IAmTomaton/Cgame/blob/master/Cgame/Core/GameObject.cs
+
+Добавления новых текстур c помощью “texturePaths.txt” 
+
+https://github.com/IAmTomaton/Cgame/blob/master/Cgame/Resources/texturePaths.txt
+
+Добавление новых сцен с помощью SceneLoader.
+
+https://github.com/IAmTomaton/Cgame/blob/master/Cgame/SceneLoader.cs
+
+Изменение GUI с помощью GUImanager.
+
+https://github.com/IAmTomaton/Cgame/blob/master/Cgame/Core/GUIManager.cs
+
+Можно с помощью Ninject и интерфейсов IGame, ISpace, IPainter, ITextureLibrary изменить внутреннюю логику движка.
 	
 # Точка сбора зависимостей DI-контейером: 
-MainWindow.GetContainer()
 
-# Слои
-UserInterface
+MainWindow
 
-Папка Core.Grafic, Painter 
+https://github.com/IAmTomaton/Cgame/blob/master/Cgame/MainWindow.xaml.cs
 
-Application:
+# Расположение файлов
 
-Camera, Game, GameContext, GameObject, LayerSettings, Painter, Shader, Space, Sprite
+В папке Core располагаются файлы для самого движка. Расширения .cs или подобные. 
 
-Domain:
+В папке Data располагаются пользовательские файлы, которые используют файлы из Core. Расширения .cs или подобные. 
 
-Physics, Bullet, Obstacle, Platfrom, Player, Scene
-
-Infrastracture:
-
-ConsoleControl, ConsoleListener, SceneLoader, TextureLibrary
-
-Добавление новых текстур:
-	Для добавления новых текстур нужно только указать в файле texturePaths.txt её имя для библиотеки и имени файла через пробел.
-	К имени файла прибавляется предыдущий путь указанный с пометкой basePath.
-	
-В папке Core располагаются файлы для самого движка. .cs или подобные файлы.
-В папке Data располагаются пользовательские файлы, которые используют файлы из Core. .cs или подобные файлы.
 В папке Resources располагаются не .cs или подобные файлы. Текстуры, шейдеры, файлы настройки и прочее.
 
-__Многие названия и конструкции не являются конечными и могут быть переработаны!__
+# Слои
 
-Лень оформлять, но:
-1) Коллайдеры более не нуждаются в установки у них родительского GameObject в конструкторе.
-2) У объекта появился метод alive, чтобы удалить объект нужно вызвать метод Destroy().
+
