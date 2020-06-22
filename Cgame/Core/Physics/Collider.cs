@@ -103,13 +103,6 @@ namespace Cgame.Core
         }
 
         /// <summary>
-        /// Возвращает новый коллайдер который перемещён аналогично объекту.
-        /// </summary>
-        /// <param name="gameObject"></param>
-        /// <returns></returns>
-        public Collider TransformToGameObject(GameObject gameObject) => Transform(gameObject.Position.Xy, gameObject.Angle);
-
-        /// <summary>
         /// Копирует коллайдер.
         /// </summary>
         /// <returns></returns>

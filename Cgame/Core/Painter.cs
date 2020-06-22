@@ -1,5 +1,4 @@
-﻿using Cgame.Core.Graphic;
-using Cgame.Core.Interfaces;
+﻿using Cgame.Core.Interfaces;
 using Cgame.Core.Shaders;
 using OpenTK;
 using OpenTK.Graphics.OpenGL4;

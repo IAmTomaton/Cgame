@@ -79,6 +79,7 @@
     </ApplicationDefinition>
     <Compile Include="ConsoleListener.cs" />
     <Compile Include="Core\AirspacePopup.cs" />
+    <Compile Include="Core\CameraExtension.cs" />
     <Compile Include="Core\Game.cs" />
     <Compile Include="Core\GUIManager.cs" />
     <Compile Include="Core\Interfaces\IGUIManager.cs" />
@@ -87,6 +88,7 @@
     <Compile Include="Core\Interfaces\ISpaceUpdater.cs" />
     <Compile Include="Core\Interfaces\ITextureLibrary.cs" />
     <Compile Include="Core\Painter.cs" />
+    <Compile Include="Core\Physics\ColliderExtensions.cs" />
     <Compile Include="Core\SpaceUpdater.cs" />
     <Compile Include="Data\Interfaces\IKilling.cs" />
     <Compile Include="Data\Interfaces\IShootable.cs" />
