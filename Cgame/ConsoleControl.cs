@@ -9,7 +9,6 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
-using OpenTK.Input;
 using System.Windows.Input;
 using Key = System.Windows.Input.Key;
 using System.Windows.Forms.VisualStyles;
@@ -50,7 +49,7 @@ namespace Cgame
 
         public static void Update()
         {
-            var keyBoard = GameContext.KeyboardDevice;
+            var keyBoard = Keyboard.PrimaryDevice;
             if (keyBoard.IsKeyDown(Key.K))
             {
                 if (isShown)
