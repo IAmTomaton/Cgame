@@ -193,7 +193,7 @@ namespace Cgame.Core
             return new Collision(mtv, Math.Abs(minMTVLength));
         }
 
-        private static Vector2 GetProjection(Vector2 vector, Collider collider)
+        public static Vector2 GetProjection(Vector2 vector, Collider collider)
         {
             Vector2 result = default;
 

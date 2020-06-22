@@ -8,7 +8,7 @@ namespace Cgame.objects
     {
         public Obstacle()
         {
-            Sprite = new Sprite(this, "triangle");
+            Sprite = new Sprite("triangle");
             Collider = new Collider(48, 48);
             Layer = Layer.Object;
             Mass = 1;

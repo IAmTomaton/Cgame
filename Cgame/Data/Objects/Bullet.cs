@@ -20,7 +20,7 @@ namespace Cgame
         {
             this.player = player;
             this.range = range;
-            Sprite = new Sprite(this, "bullet");
+            Sprite = new Sprite("bullet");
             Layer = Layer.Player;
             Collider = new Collider(16, 16);
             Mass = 0.05f;

@@ -7,7 +7,7 @@ namespace Cgame.objects
     {
         public Platform()
         {
-            Sprite = new Sprite(this, "platform");
+            Sprite = new Sprite("platform");
             Collider = new Collider(64, 256);
             Layer = Layer.Object;
             Mass = 0;
