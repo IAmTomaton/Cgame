@@ -83,7 +83,6 @@
     <Compile Include="Core\Painter.cs" />
     <Compile Include="Core\Physics\ColliderExtensions.cs" />
     <Compile Include="Core\SpaceUpdater.cs" />
-    <Compile Include="Core\Targer.cs" />
     <Compile Include="Data\Interfaces\IKilling.cs" />
     <Compile Include="Data\Interfaces\IShootable.cs" />
     <Compile Include="Data\Objects\Bullet.cs" />
