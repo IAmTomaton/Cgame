@@ -71,11 +71,6 @@ namespace Cgame
             Position = new Vector3(x, y, 0);
         }
 
-        public Player(PlayerObjectParameter parameters)
-            : this(parameters.Position, parameters.HasGravity, parameters.HasJumps,
-                  parameters.MovementType, parameters.ShootType)
-        {}
-
         public override void Start()
         {
             GameContext.Space.BindGameObjectToCamera(this);
@@ -128,7 +123,8 @@ namespace Cgame
             var start = new Vector2(this.Position.X, this.Position.Y<0?0:this.Position.Y);
             if (GameContext.Space.FindLocalObject<IShootable>().Count() != 0)
             {
-                var objectsToShoot = GameContext.Space.FindLocalObject<IShootable>().Cast<GameObject>();
+                var objectsToShoot = GameContext.Space.FindLocalObject<IShootable>()
+                    .Cast<GameObject>();
                 var circle = objectsToShoot.ElementAt(0).Collider;
                 var projection = GetProjection(circle.Position, start, start + shootDirection);
                 var x = projection.X;
@@ -214,6 +210,11 @@ namespace Cgame
                     Sprite.StepForward();
                     IsAlive = false;
                 }
+            }
+            else
+            {
+                GameContext.Space.AddLocalObject(new Menu(false,true,"you lost"));
+                this.Destroy();
             }
             base.Update();
         }

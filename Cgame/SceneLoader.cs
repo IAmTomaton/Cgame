@@ -14,15 +14,16 @@ namespace Cgame
     {
         private static List<string> scenes = new List<string>
         {
-            "Resources/Scenes/scene2.txt",
-            "Resources/Scenes/scene1.txt"
+            "Resources/Scenes/scene1.txt",
+            "Resources/Scenes/scene2.txt"
         };
         private static int currentSceneNumber = -1;
         private static Scene currentScene = null;
 
         public static void Update()
         {
-            if (!(currentScene is null) && currentScene.IsEnded)
+            if (!(currentScene is null) && currentScene.IsEnded ||
+                GameContext.Space.FindLocalObject<GameObject>().Count()==0)
             {
                 GameContext.Space.ClearLocals();
                 LoadNextScene();

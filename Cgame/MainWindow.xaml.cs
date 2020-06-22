@@ -89,6 +89,7 @@ namespace Cgame
             conteiner.Bind<GameObject>().To<Player>().Named("Player");
             conteiner.Bind<GameObject>().To<Obstacle>().Named("Obstacle");
             conteiner.Bind<GameObject>().To<Platform>().Named("Platform");
+            conteiner.Bind<GameObject>().To<Menu>().Named("Menu");
             conteiner.Bind<IGameObjectFactory>()
                 .ToFactory(() => new UseFirstArgumentAsNameInstanceProvider());
             Conteiner = conteiner;

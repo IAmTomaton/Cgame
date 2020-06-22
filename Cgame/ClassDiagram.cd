@@ -1,0 +1,265 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Cgame.SceneProcesser" Collapsed="true">
+    <Position X="10.5" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAAAAAABBAAAAgAEAAAAAAA=</HashCode>
+      <FileName>SceneProcesser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Cgame.SceneLoader" Collapsed="true">
+    <Position X="10.5" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAACAAgQAAAAAIAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SceneLoader.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Cgame.Scene" Collapsed="true">
+    <Position X="10.5" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAAAABAAAAAAAAAAAAABAAABAAAAAAAAAAA=</HashCode>
+      <FileName>Scene.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Cgame.Player" Collapsed="true">
+    <Position X="12.75" Y="7.75" Width="1.5" />
+    <InheritanceLine Type="Cgame.Core.GameObject" FixedToPoint="true">
+      <Path>
+        <Point X="17.5" Y="9.25" />
+        <Point X="17.5" Y="8.816" />
+        <Point X="13.375" Y="8.816" />
+        <Point X="13.375" Y="8.441" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AQQBAwAAACAAAAAAAAQAQAACABABAAEBIAAYAgIAgAA=</HashCode>
+      <FileName>Player.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Cgame.UseFirstArgumentAsNameInstanceProvider" Collapsed="true">
+    <Position X="10.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAABAA=</HashCode>
+      <FileName>MainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Cgame.MainWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="10.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEQAAEAAAAAAAAAAQAAAAAAACAAAAAAIAgAAAAAAgAA=</HashCode>
+      <FileName>MainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Cgame.ConsoleListener" Collapsed="true">
+    <Position X="8.5" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ConsoleListener.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Cgame.ConsoleControl" Collapsed="true">
+    <Position X="8.5" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAQAAAAAAAAAAAAAABAAAAQAAAAAAAAAAAACAABgEAA=</HashCode>
+      <FileName>ConsoleControl.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Cgame.objects.Platform" Collapsed="true">
+    <Position X="16.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\Objects\Platform.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Cgame.objects.Obstacle" Collapsed="true">
+    <Position X="18.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\Objects\Obstacle.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Cgame.Bullet" Collapsed="true">
+    <Position X="14.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAIACAAABAAAAAAAAAAAAAAAAABIAAAAAAAAAA=</HashCode>
+      <FileName>Data\Objects\Bullet.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Cgame.Core.Sprite" Collapsed="true">
+    <Position X="20.5" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAAAAgAAEAgAQAAAAAAAAAKkIAAEAAAAA=</HashCode>
+      <FileName>Core\Sprite.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Cgame.Core.SpaceUpdater" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="16.25" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQCAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAABAAAA=</HashCode>
+      <FileName>Core\SpaceUpdater.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Cgame.Core.Space" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="12.75" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QFUCgBACAyggSABAAAAQAAAAAABgAIAAAAAAAhEEIAA=</HashCode>
+      <FileName>Core\Space.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Orientation="Left" Position="0.1" Collapsed="true" />
+  </Class>
+  <Class Name="Cgame.Core.Painter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="18.5" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAEAAAgAAAAAAAAAAAAAAAAACAAAAAEAAAAA=</HashCode>
+      <FileName>Core\Painter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Cgame.Core.LayerSettings" Collapsed="true">
+    <Position X="8.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAAAAAAAAAAAAAAAQAAACAAAAAAAEAAAA=</HashCode>
+      <FileName>Core\LayerSettings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Cgame.Core.GUIManager" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="14.5" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAE=</HashCode>
+      <FileName>Core\GUIManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Cgame.Core.GameObject" Collapsed="true">
+    <Position X="16.75" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQBAAAAACAAAAAgAAAAAAAAAABAAAQUIEAAAAKEAAA=</HashCode>
+      <FileName>Core\GameObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Cgame.Core.GameContext" Collapsed="true">
+    <Position X="15.5" Y="14.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAACBAAQAgAAAAAAAAAAAABAAAAAAAAAACBAACCAA=</HashCode>
+      <FileName>Core\GameContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Cgame.Core.Game" Collapsed="true">
+    <Position X="15.5" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAEAAACAAAAAAAAAAgAAAAAAAAAAAAAAAAAEAQAI=</HashCode>
+      <FileName>Core\Game.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Cgame.Core.CameraExtension" Collapsed="true">
+    <Position X="8.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\CameraExtension.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Cgame.Core.Shaders.Shader" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="18.5" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAACAAAgAMAAAAAAAAAAAEAAISJAAAAgAAAAA=</HashCode>
+      <FileName>Core\Shader.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Cgame.Core.Camera" Collapsed="true">
+    <Position X="12.75" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAACBRAAAAEgAgAgIGAAICAAAEgAAADAAoAAgAI=</HashCode>
+      <FileName>Core\Camera.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Cgame.Core.Graphic.Texture" Collapsed="true">
+    <Position X="20.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAAAAAAEAAAAAEAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Graphic\Texture.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Cgame.Core.Graphic.TextureLibrary" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="20.5" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAwAACAEAAAAAAAAQCAAACAAAAAAAAAAQAAEAAAAA=</HashCode>
+      <FileName>Core\Graphic\TextureLibrary.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Cgame.Core.Graphic.Primitive" Collapsed="true">
+    <Position X="20.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAAAAAAAAAAAAAAAAAUAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Graphic\Primitive.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="Cgame.IGameObjectFactory" Collapsed="true">
+    <Position X="10.5" Y="7.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SceneProcesser.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Cgame.Interfaces.IShootable" Collapsed="true">
+    <Position X="16" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\Interfaces\IShootable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Cgame.Interfaces.IKilling" Collapsed="true">
+    <Position X="13.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\Interfaces\IKilling.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Cgame.Core.Interfaces.ITextureLibrary" Collapsed="true">
+    <Position X="20.5" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAACAAAAAAAAAAAAAAACAAAAAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>Core\Interfaces\ITextureLibrary.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Cgame.Core.Interfaces.ISpaceUpdater" Collapsed="true">
+    <Position X="16.25" Y="12.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Interfaces\ISpaceUpdater.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Cgame.Core.Interfaces.ISpaceStore" Collapsed="true">
+    <Position X="12.75" Y="12.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQCAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAEEAAA=</HashCode>
+      <FileName>Core\Interfaces\ISpaceStore.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Cgame.Core.Interfaces.ISpaceContext" Collapsed="true">
+    <Position X="12.75" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QFAAAAACAQgAAABAAAAQAAAAAAAgAIAAAAAAAgAAAAA=</HashCode>
+      <FileName>Core\Interfaces\ISpaceContext.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Cgame.Core.Interfaces.IPainter" Collapsed="true">
+    <Position X="18.5" Y="12.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Interfaces\IPainter.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Cgame.Core.Interfaces.IGUIManager" Collapsed="true">
+    <Position X="14.5" Y="12.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAE=</HashCode>
+      <FileName>Core\Interfaces\IGUIManager.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

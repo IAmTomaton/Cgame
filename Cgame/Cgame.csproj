@@ -95,6 +95,7 @@
     <Compile Include="Data\Objects\Bullet.cs" />
     <Compile Include="Data\Objects\Obstacle.cs" />
     <Compile Include="Data\Objects\Platform.cs" />
+    <Compile Include="Menu.cs" />
     <Compile Include="Scene.cs" />
     <Compile Include="SceneLoader.cs" />
     <Compile Include="SceneProcesser.cs" />
@@ -121,7 +122,6 @@
     <Compile Include="Core\Graphic\Texture.cs" />
     <Compile Include="Core\Graphic\TextureLibrary.cs" />
     <Compile Include="Core\WindowSettings.cs" />
-    <Compile Include="GameObjectParameter.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -146,6 +146,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="ClassDiagram.cd" />
     <None Include="Resources\Shaders\shader.frag">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

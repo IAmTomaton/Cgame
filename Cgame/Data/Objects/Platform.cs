@@ -22,7 +22,5 @@ namespace Cgame.objects
         {
             Position = new Vector3(x,y,0);
         }
-
-        public Platform(GameObjectParameter parameter) : this(parameter.Position) { }
     }
 }

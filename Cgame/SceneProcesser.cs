@@ -20,7 +20,7 @@ namespace Cgame
 {
     public interface IGameObjectFactory
     {
-        GameObject CreateGameObject(string name, int x, int y);
+        GameObject CreateGameObject(string name);
     }
 
     public class SceneProcesser
@@ -45,7 +45,8 @@ namespace Cgame
                 var name = commandParts[2];
                 try
                 {
-                    newObject = factory.CreateGameObject(name, x, y);
+                    newObject = factory.CreateGameObject(name);
+                    newObject.Position = new Vector3(x, y, 0);
                 }
                 catch (Ninject.ActivationException e)
                 {

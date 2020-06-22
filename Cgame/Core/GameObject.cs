@@ -1,4 +1,5 @@
-﻿using OpenTK;
+﻿
+using OpenTK;
 
 namespace Cgame.Core
 {
@@ -38,7 +39,7 @@ namespace Cgame.Core
         public bool Alive { get; private set; } = true;
 
         /// <summary>
-        /// На данный момент не нужен, но чтобы не дописывать его вызов во всех потомках когда он понадобится он тут есть.
+        /// 
         /// </summary>
         public GameObject() { }
 
