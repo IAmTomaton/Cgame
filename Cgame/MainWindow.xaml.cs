@@ -85,6 +85,8 @@ namespace Cgame
             conteiner.Bind<IPainter>().To<Painter>();
             conteiner.Bind<ISpaceStore>().To<Space>().InSingletonScope();
             conteiner.Bind<Camera>().ToSelf();
+            conteiner.Bind<ISceneProcesser>().To<SceneProcesser>().InSingletonScope();
+            conteiner.Bind<ISceneLoader>().To<SceneLoader>();
             conteiner.Bind<GameObject>().To<Player>().Named("Player");
             conteiner.Bind<GameObject>().To<Obstacle>().Named("Obstacle");
             conteiner.Bind<GameObject>().To<Platform>().Named("Platform");

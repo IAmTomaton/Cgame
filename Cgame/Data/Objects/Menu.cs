@@ -61,6 +61,8 @@ namespace Cgame
             backGroundLabel.HorizontalContentAlignment = HorizontalAlignment.Center;
             backGroundLabel.VerticalContentAlignment = VerticalAlignment.Top;
             backGroundLabel.Foreground = System.Windows.Media.Brushes.White;
+            backGroundLabel.FontFamily = new System.Windows
+                .Media.FontFamily("Verdana");
             backGroundLabel.FontSize = 40;
             menuElements.Add(backGroundLabel);
             GameContext.GUI.AddUIElement(backGroundLabel);
@@ -83,11 +85,5 @@ namespace Cgame
             if (text != null)
                 backGroundLabel.Content = text;
         }
-
-        /*public override void Start()
-        {
-            Init();
-            base.Start();
-        }*/
     }
 }

@@ -1,1 +1,1 @@
-﻿add local Menu 10 100
+﻿add local Menu

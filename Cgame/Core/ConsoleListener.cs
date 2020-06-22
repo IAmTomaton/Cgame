@@ -7,18 +7,22 @@ using System.Threading.Tasks;
 
 namespace Cgame
 {
-    public static class ConsoleListener
+    public class ConsoleListener
     {
-        public static void Update()
+        private static Action<string> action;
+
+        public ConsoleListener(Action<string> act)
+        {
+            action = act;
+        }
+
+        public void Update()
         {
             if (ConsoleControl.isShown)
             while (Console.KeyAvailable)
             {
                 var command = Console.ReadLine();
-                    if (command == "end")
-                        ConsoleControl.HideWindow();
-                    else
-                        new SceneProcesser().Process(command);
+                    action(command);
             }
         }
     }

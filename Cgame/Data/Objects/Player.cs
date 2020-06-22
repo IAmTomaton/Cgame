@@ -38,7 +38,7 @@ namespace Cgame
         private bool isJumpingUp = false;
         private bool isFallingAfterJump = false;
         public bool isShooting = false;
-        private static float defaultSpeedX = 100;
+        private static float defaultSpeedX = 200;
 
         private bool hasGravity = true;
         private bool hasJumps = true;
@@ -214,7 +214,7 @@ namespace Cgame
             }
             else
             {
-                GameContext.Space.AddLocalObject(new Menu(false,true,"you lost"));
+                GameContext.Space.AddLocalObject(new Menu(false,true,null));
                 this.Destroy();
             }
             base.Update();

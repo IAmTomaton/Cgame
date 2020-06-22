@@ -22,6 +22,9 @@ namespace Cgame.Core
             }
         }
 
+        
+        private ISceneLoader sceneLoader;
+
         private Queue<GameObject> globalObjectsToAdd = new Queue<GameObject>();
         private Queue<GameObject> localObjectsToAdd = new Queue<GameObject>();
 
@@ -34,8 +37,9 @@ namespace Cgame.Core
         private GameObject cameraObject;
         private readonly Camera camera;
 
-        public Space(Camera camera)
+        public Space(Camera camera, ISceneLoader sceneLoader)
         {
+            this.sceneLoader = sceneLoader;
             this.camera = camera;
             camera.Position = Vector3.UnitZ * 500;
         }
@@ -129,7 +133,7 @@ namespace Cgame.Core
 
         public void Start()
         {
-            SceneLoader.LoadNextScene();
+            sceneLoader.LoadNextScene();
         }
     }
 }

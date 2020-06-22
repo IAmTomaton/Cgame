@@ -10,27 +10,37 @@ using System.Windows;
 
 namespace Cgame
 {
-    static class SceneLoader
+    public class SceneLoader:ISceneLoader
     {
         private static List<string> scenes = new List<string>
         {
             "Resources/Scenes/scene1.txt",
-            "Resources/Scenes/scene2.txt"
+            "Resources/Scenes/scene2.txt",
+            "Resources/Scenes/scene3.txt"
         };
         private static int currentSceneNumber = -1;
-        private static Scene currentScene = null;
+        private Scene currentScene = null;
+        private ISceneProcesser sceneProcesser;
 
-        public static void Update()
+        public SceneLoader(ISceneProcesser sceneProcesser)
         {
-            if (!(currentScene is null) && currentScene.IsEnded ||
+            this.sceneProcesser = sceneProcesser;
+        }
+
+        public void Update()
+        {
+            if (!(currentScene is null) && (currentScene.IsLast||
+                currentScene.IsEnded) ||
                 GameContext.Space.FindLocalObject<GameObject>().Count()==0)
             {
+                if (!(currentScene is null) && currentScene.IsLast)
+                    GameContext.Space.AddLocalObject(new Menu(false, true, null));
                 GameContext.Space.ClearLocals();
                 LoadNextScene();
             }
         }
 
-        public static void LoadNextScene()
+        public void LoadNextScene()
         {
             currentSceneNumber += 1;
             var path = scenes[currentSceneNumber % scenes.Count()];
@@ -40,13 +50,16 @@ namespace Cgame
                 string line;
                 while ((line = sr.ReadLine()) != null)
                 {
-                    var pair = new SceneProcesser().Process(line);
+                    var pair = sceneProcesser.Process(line);
                     if (pair.ifAdded && pair.newObject is Player player)
                     {
                         currentScene = new Scene(player, new OpenTK.Vector3(-900, 0, 0),
-                            new OpenTK.Vector3(1100, 0, 0));
+                            new OpenTK.Vector3(1100, 0, 0), false);
                         playerAdded = true;
                     }
+                    if (!pair.ifAdded)
+                        currentScene = new Scene(null, new OpenTK.Vector3(-900, 0, 0),
+                            new OpenTK.Vector3(1100, 0, 0), true);
                 }
             }
             if (!playerAdded)

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Cgame.Core.Interfaces
 {
-    interface ISpaceStore : ISpaceContext
+    public interface ISpaceStore : ISpaceContext
     {
         /// <summary>
         /// Текущаяя камера пространства.

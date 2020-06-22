@@ -12,12 +12,15 @@ namespace Cgame
     {
         private Vector3 startPosition;
         private Vector3 endPosition;
-        private Player player;
-        public bool IsEnded => player.Position.X > endPosition.X;
+        public Player Player { get; private set; }
+        public bool IsEnded => Player.Position.X > endPosition.X;
+        public bool IsLast { get; private set; }
 
-        public Scene(Player player, Vector3 startOfScene, Vector3 endOfScene)
+        public Scene(Player player, Vector3 startOfScene, 
+            Vector3 endOfScene, bool last)
         {
-            this.player = player;
+            IsLast = last;
+            this.Player = player;
             startPosition = startOfScene;
             endPosition = endOfScene;
         }

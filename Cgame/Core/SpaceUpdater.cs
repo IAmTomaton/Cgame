@@ -7,10 +7,23 @@ namespace Cgame.Core
 {
     class SpaceUpdater : ISpaceUpdater
     {
-        public SpaceUpdater()
-        {
+        private ISceneProcesser sceneProcesser;
+        private ISceneLoader sceneLoader;
 
+        public SpaceUpdater(ISceneProcesser sceneProcesser, ISceneLoader sceneLoader)
+        {
+            this.sceneLoader = sceneLoader;
+            this.sceneProcesser = sceneProcesser;
+            consoleListener = new ConsoleListener(c =>
+            {
+                if (c == "end")
+                    ConsoleControl.HideWindow();
+                else
+                    sceneProcesser.Process(c);
+            });
         }
+
+        private ConsoleListener consoleListener;
 
         public void Update(List<GameObject> gameObjects, float delayTime)
         {
@@ -44,8 +57,8 @@ namespace Cgame.Core
             foreach (var gameObject in gameObjects)
                 gameObject.Update();
             ConsoleControl.Update();
-            ConsoleListener.Update();
-            SceneLoader.Update();
+            consoleListener.Update();
+            sceneLoader.Update();
         }
 
         /// <summary>

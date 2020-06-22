@@ -23,9 +23,14 @@ namespace Cgame
         GameObject CreateGameObject(string name);
     }
 
-    public class SceneProcesser
+    public class SceneProcesser:ISceneProcesser
     {
         private static Stack<GameObject> gameObjectsStack = new Stack<GameObject>();
+        private Lazy<ISpaceStore> spaceContext;
+        public SceneProcesser(Lazy<ISpaceStore> spaceContext)
+        {
+            this.spaceContext = spaceContext;
+        }
 
         public GameObject CreateObjectToAdd(string[] commandParts)
         {
@@ -36,9 +41,10 @@ namespace Cgame
                 s=>int.TryParse(s, out x),
                 s=>int.TryParse(s, out y)
             };
-            bool ifParsed = commandParts.Skip(3)
+            bool ifParsed = commandParts.Count() > 3?
+                ifParsed = commandParts.Skip(3)
                 .Select((s, i) => toInit[i](s))
-                .Aggregate((f, s) => f && s);
+                .Aggregate((f, s) => f && s):ifParsed = true;
             if (ifParsed)
             {
                 var factory = MainWindow.Conteiner.Get<IGameObjectFactory>();
@@ -64,9 +70,9 @@ namespace Cgame
             if (newObject != null)
             {
                 if (commandParts[1] == "local")
-                    GameContext.Space.AddLocalObject(newObject);
+                    spaceContext.Value.AddLocalObject(newObject);
                 else if (commandParts[1] == "global")
-                    GameContext.Space.AddGlobalObject(newObject);
+                    spaceContext.Value.AddGlobalObject(newObject);
                 else
                     Console.WriteLine("wrong command.need local/global");
             }
@@ -95,6 +101,8 @@ namespace Cgame
                     return (true, obj);
                 case "cancel":
                     CancelActions();
+                    return (false, newObject);
+                case "end":
                     return (false, newObject);
                 default:
                     Console.WriteLine("some mistake in scene command(add/cancel)");
