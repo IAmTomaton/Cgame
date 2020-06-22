@@ -1,6 +1,6 @@
 ﻿namespace Cgame.Interfaces
 {
-    interface IKilling
+    public interface IKilling
     {
     }
 }

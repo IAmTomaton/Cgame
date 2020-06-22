@@ -14,8 +14,8 @@ namespace Cgame
     {
         private static List<string> scenes = new List<string>
         {
-            "Resources/Scenes/scene2.txt"
-            //"Resources/Scenes/scene1.txt"
+            "Resources/Scenes/scene2.txt",
+            "Resources/Scenes/scene1.txt"
         };
         private static int currentSceneNumber = -1;
         private static Scene currentScene = null;
@@ -39,7 +39,7 @@ namespace Cgame
                 string line;
                 while ((line = sr.ReadLine()) != null)
                 {
-                    var pair = SceneProcesser.Process(line);
+                    var pair = new SceneProcesser().Process(line);
                     if (pair.ifAdded && pair.newObject is Player player)
                     {
                         currentScene = new Scene(player, new OpenTK.Vector3(-900, 0, 0),
@@ -49,7 +49,7 @@ namespace Cgame
                 }
             }
             if (!playerAdded)
-                Console.WriteLine("В этой сцене нет игрока!");
+                Console.WriteLine("No player in the scene");
         }
     }
 }

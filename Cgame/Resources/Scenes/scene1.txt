@@ -1,3 +1,2 @@
-﻿add local obstacle 10 100
-add local platform 10 10
-add local player -50 50
+﻿add local Obstacle 10 100
+add local Platform 10 10

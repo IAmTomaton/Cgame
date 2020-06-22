@@ -1,104 +1,104 @@
 ﻿using Cgame.Core;
 using Cgame.Core.Interfaces;
+using Cgame.Core.Shaders;
+using Cgame.Interfaces;
 using Cgame.objects;
+using Ninject;
 using OpenTK;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Timers;
+using OpenTK.Graphics;
+using OpenTK.Graphics.OpenGL4;
+using Ninject.Extensions.Factory;
 
 namespace Cgame
 {
-    static class SceneProcesser
+    public interface IGameObjectFactory
+    {
+        GameObject CreateGameObject(string name, int x, int y);
+    }
+
+    public class SceneProcesser
     {
         private static Stack<GameObject> gameObjectsStack = new Stack<GameObject>();
-        private static Dictionary<string, Func<GameObjectParameter, GameObject>> creationDict
-            = new Dictionary<string, Func<GameObjectParameter, GameObject>>()
-            {
-                {"player", p=>new Player((PlayerObjectParameter)p)},
-                {"platform", p=>new Platform(p)},
-                { "obstacle", p=>new Obstacle(p)}
-            };
 
-        public static GameObject CreateObjectToAdd(string[] commandParts)
+        public GameObject CreateObjectToAdd(string[] commandParts)
         {
             GameObject newObject = null;
-            int x = 0; int y = 0; bool gr = true; bool jumps = true;
-            MovementType move = MovementType.Continuos; ShootType shoot = ShootType.CreateBullet;
-            var toInitPlayer = new List<Func<string, bool>>()
-                    {
-                        s=>int.TryParse(s, out x),
-                        s=>int.TryParse(s, out y),
-                        s=>bool.TryParse(s, out gr),
-                        s=>bool.TryParse(s, out jumps),
-                        s=>Enum.TryParse(s, out move),
-                        s=>Enum.TryParse(s, out shoot)
-                    };
-            bool ifParsed = commandParts
-                .Skip(3)
-                .Select((s, i) => toInitPlayer[i](s))
+            int x = 0; int y = 0;
+            var toInit = new List<Func<string, bool>>()
+            {
+                s=>int.TryParse(s, out x),
+                s=>int.TryParse(s, out y)
+            };
+            bool ifParsed = commandParts.Skip(3)
+                .Select((s, i) => toInit[i](s))
                 .Aggregate((f, s) => f && s);
             if (ifParsed)
             {
-                if (commandParts[2] == "player")
-                    newObject = creationDict[commandParts[2]]
-                     (new PlayerObjectParameter(new Vector3(x, y, 0), gr, jumps, move, shoot));
-                else
-                    newObject = creationDict[commandParts[2]]
-                     (new GameObjectParameter(new Vector3(x, y, 0)));
+                var factory = MainWindow.Conteiner.Get<IGameObjectFactory>();
+                var name = commandParts[2];
+                try
+                {
+                    newObject = factory.CreateGameObject(name, x, y);
+                }
+                catch (Ninject.ActivationException e)
+                {
+                    Console.WriteLine("nonexistent gameobject");
+                }
                 gameObjectsStack.Push(newObject);
             }
-            else
-                Console.WriteLine("some mistake in scene command(parameters of object)");
+            else Console.WriteLine("some mistake in scene command(parameters of object)");
             return newObject;
         }
 
-        public static (bool ifAdded, GameObject newObject) Process(string command)
+        public GameObject AddActions(string[] commandParts, GameObject newObject)
+        {
+            newObject = CreateObjectToAdd(commandParts);
+            if (newObject != null)
+            {
+                if (commandParts[1] == "local")
+                    GameContext.Space.AddLocalObject(newObject);
+                else if (commandParts[1] == "global")
+                    GameContext.Space.AddGlobalObject(newObject);
+                else
+                    Console.WriteLine("wrong command.need local/global");
+            }
+            else Console.WriteLine("null object created");
+            return newObject;
+        }
+
+        public void CancelActions()
+        {
+            if (gameObjectsStack.Count() != 0)
+            {
+                var lastObj = gameObjectsStack.Pop();
+                lastObj.Destroy();
+            }
+            else Console.WriteLine("no actions to cancel");
+        }
+
+        public  (bool ifAdded, GameObject newObject) Process(string command)
         {
             GameObject newObject = null;
             var commandParts = command.Split();
-            var add = false;
             switch (commandParts[0])
             {
                 case "add":
-                    add = true;
-                    break;
+                    var obj = AddActions(commandParts,newObject);
+                    return (true, obj);
                 case "cancel":
-                    if (gameObjectsStack.Count() != 0)
-                    {
-                        var lastObj = gameObjectsStack.Pop();
-                        lastObj.Destroy();
-                    }
-                    else Console.WriteLine("some mistake in scene command(add/delete)");
-                    break;
+                    CancelActions();
+                    return (false, newObject);
                 default:
-                    Console.WriteLine("some mistake in scene command(add/delete)");
-                    break;
+                    Console.WriteLine("some mistake in scene command(add/cancel)");
+                    return (false, newObject);
             }
-            if (add)
-            {
-                try
-                {
-                    newObject = CreateObjectToAdd(commandParts);
-                    if (newObject != null)
-                    {
-                        if (commandParts[1] == "local")
-                            GameContext.Space.AddLocalObject(newObject);
-                        else if (commandParts[1] == "global")
-                            GameContext.Space.AddGlobalObject(newObject);
-                        else
-                            Console.WriteLine("wrong command.need local/global");
-                    }
-                    else Console.WriteLine("null object created");
-
-                }
-                catch (KeyNotFoundException e)
-                {
-                    Console.WriteLine("some mistake in scene command(type of object)");
-                }
-            }
-            return (add, newObject);
         }
     }
 }
