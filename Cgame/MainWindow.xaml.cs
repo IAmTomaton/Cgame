@@ -22,9 +22,40 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using Ninject.Extensions.Factory;
+using Ninject.Parameters;
+using System.Reflection;
+using Cgame.objects;
+using Cgame.Interfaces;
+using System.ComponentModel;
 
 namespace Cgame
 {
+    public class UseFirstArgumentAsNameInstanceProvider : StandardInstanceProvider
+    {
+        protected override string GetName(System.Reflection.MethodInfo methodInfo,
+            object[] arguments)
+        {
+            return (string)arguments[0];
+        }
+
+        protected override IConstructorArgument[]
+            GetConstructorArguments(MethodInfo methodInfo, object[] arguments)
+        {
+            var parameters = methodInfo.GetParameters();
+            var constructorArguments =
+                new ConstructorArgument[parameters.Length];
+            for (int i = 0; i < parameters.Length; i++)
+            {
+                constructorArguments[i] =
+                    new ConstructorArgument
+                        (parameters[i].Name, arguments[i], true);
+            }
+            var resArray = constructorArguments.Skip(1).ToArray();
+            return resArray;
+        }
+    }
+
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
@@ -32,6 +63,11 @@ namespace Cgame
     {
         private Game game;
         private readonly Timer timer = new Timer(10);
+        public static StandardKernel Conteiner { get; private set; }
+
+        static MainWindow()
+        {
+        }
 
         public MainWindow()
         {
@@ -39,12 +75,13 @@ namespace Cgame
             ConsoleControl.HideWindow();
         }
 
-        private StandardKernel GetConteiner()
+        public StandardKernel GetConteiner()
         {
             var conteiner = new StandardKernel();
             conteiner.Bind<Game>().To<Game>();
             conteiner.Bind<Size>().ToConstant(new Size(gLControl.Width, gLControl.Height));
-            conteiner.Bind<Shader>().ToConstant(new Shader("Resources/Shaders/shader.vert", "Resources/Shaders/shader.frag"));
+            conteiner.Bind<Shader>().ToConstant(new Shader("Resources/Shaders/shader.vert",
+                "Resources/Shaders/shader.frag"));
             conteiner.Bind<ITextureLibrary>().To<TextureLibrary>();
             conteiner.Bind<GLControl>().ToConstant(gLControl);
             conteiner.Bind<Grid>().ToConstant(GUI);
@@ -53,6 +90,12 @@ namespace Cgame
             conteiner.Bind<IPainter>().To<Painter>();
             conteiner.Bind<ISpaceStore>().To<Space>().InSingletonScope();
             conteiner.Bind<Camera>().ToSelf();
+            conteiner.Bind<GameObject>().To<Player>().Named("Player");
+            conteiner.Bind<GameObject>().To<Obstacle>().Named("Obstacle");
+            conteiner.Bind<GameObject>().To<Platform>().Named("Platform");
+            conteiner.Bind<IGameObjectFactory>()
+                .ToFactory(() => new UseFirstArgumentAsNameInstanceProvider());
+            Conteiner = conteiner;
             return conteiner;
         }
 

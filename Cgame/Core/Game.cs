@@ -10,7 +10,8 @@ namespace Cgame.Core
         private readonly IPainter painter;
         private readonly IGUIManager GUIManager;
 
-        public Game(ISpaceUpdater spaceUpdater, ISpaceStore spaceStore, IPainter painter, IGUIManager GUIManager)
+        public Game(ISpaceUpdater spaceUpdater, 
+            ISpaceStore spaceStore, IPainter painter, IGUIManager GUIManager)
         {
             this.spaceUpdater = spaceUpdater;
             this.spaceStore = spaceStore;

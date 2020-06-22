@@ -18,6 +18,11 @@ namespace Cgame.objects
             Position = pos;
         }
 
+        public Platform(int x, int y) : this()
+        {
+            Position = new Vector3(x,y,0);
+        }
+
         public Platform(GameObjectParameter parameter) : this(parameter.Position) { }
     }
 }

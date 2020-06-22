@@ -18,7 +18,7 @@ namespace Cgame
                     if (command == "end")
                         ConsoleControl.HideWindow();
                     else
-                        SceneProcesser.Process(command);
+                        new SceneProcesser().Process(command);
             }
         }
     }

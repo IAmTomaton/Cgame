@@ -19,6 +19,11 @@ namespace Cgame.objects
             Position = pos;
         }
 
+        public Obstacle(int x, int y) : this()
+        {
+            Position = new Vector3(x, y, 0);
+        }
+
         public Obstacle(GameObjectParameter parameter) : this(parameter.Position) 
         { }
     }

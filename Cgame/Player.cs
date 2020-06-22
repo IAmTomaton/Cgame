@@ -66,6 +66,11 @@ namespace Cgame
                 defaultSpeedX = 0;
         }
 
+        public Player(int x, int y) : this()
+        {
+            Position = new Vector3(x, y, 0);
+        }
+
         public Player(PlayerObjectParameter parameters)
             : this(parameters.Position, parameters.HasGravity, parameters.HasJumps,
                   parameters.MovementType, parameters.ShootType)
