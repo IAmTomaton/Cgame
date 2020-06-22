@@ -3,8 +3,6 @@ using OpenTK;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows;
-using System.Windows.Controls;
 
 namespace Cgame.Core
 {
@@ -13,7 +11,15 @@ namespace Cgame.Core
     /// </summary>
     public class Space : ISpaceStore
     {
-        public Camera Camera { get; private set; }
+        public Camera Camera
+        {
+            get
+            {
+                if (!(cameraObject is null))
+                    camera.Target = new Vector3(cameraObject.Position.Xy);
+                return camera;
+            }
+        }
 
         private Queue<GameObject> globalObjectsToAdd = new Queue<GameObject>();
         private Queue<GameObject> localObjectsToAdd = new Queue<GameObject>();
@@ -21,9 +27,15 @@ namespace Cgame.Core
         private HashSet<GameObject> globalObjects = new HashSet<GameObject>();
         private HashSet<GameObject> localObjects = new HashSet<GameObject>();
 
+        /// <summary>
+        /// Объект к которому привязана камера.
+        /// </summary>
+        private GameObject cameraObject;
+        private readonly Camera camera;
+
         public Space(Camera camera)
         {
-            Camera = camera;
+            this.camera = camera;
             camera.Position = Vector3.UnitZ * 500;
         }
 
@@ -56,7 +68,7 @@ namespace Cgame.Core
         public void BindGameObjectToCamera(GameObject gameObject)
         {
             if (gameObject is null) throw new ArgumentNullException("GameObject к которому можно прикрепить камеру не может быть null.");
-            Camera.GameObject = gameObject;
+            cameraObject = gameObject;
         }
 
         public void AddLocalObject(GameObject gameObject) => AddGameObjectTo(gameObject, localObjectsToAdd);

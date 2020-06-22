@@ -13,15 +13,15 @@ namespace Cgame.Core
         /// <summary>
         /// Объект к которому привязана камера.
         /// </summary>
-        public GameObject GameObject { get; set; }
+        public Vector3 Target { get; set; } = Vector3.Zero;
         /// <summary>
         /// Возвращает позицию камеры в глобальной системе координат.
         /// Задаёт позицию камеры относительно объекта привязки. Если он не задан, то задаёт позицию камеры в глобальной системе координат.
         /// </summary>
         public Vector3 Position
         {
-            get => GameObject is null ? position : new Vector3(GameObject.Position.Xy) + position;
-            set => position = value;
+            get { return position + Target; }
+            set { position = value; }
         }
 
         public int Width { get; set; }
@@ -61,6 +61,8 @@ namespace Cgame.Core
             }
         }
 
+        private Vector3 position;
+
         public Vector3 Front => front;
         public Vector3 Up => up;
         public Vector3 Right => right;
@@ -71,7 +73,6 @@ namespace Cgame.Core
         private float pitch;
         private float yaw = -MathHelper.PiOver2;
         private float fov = MathHelper.PiOver2;
-        private Vector3 position;
 
         /// <summary>
         /// Создаёт экземмпляр камеры с указанной позицией, и разрешинием в пикселях.
