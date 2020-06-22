@@ -134,7 +134,7 @@ namespace Cgame.Core
         /// Возвращает список нормалей ко всем граням коллайдера.
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<Vector2> GetNornals()
+        public IEnumerable<Vector2> GetNormals()
         {
             var vertices = Vertices;
             for (var i = 0; i < vertices.Count; i++)
@@ -166,7 +166,7 @@ namespace Cgame.Core
             var minMTVLength = 0f;
             var first = true;
 
-            foreach (var normal in firstCollider.GetNornals().Concat(secondCollider.GetNornals()))
+            foreach (var normal in firstCollider.GetNormals().Concat(secondCollider.GetNormals()))
             {
                 Vector2 firstProjection = GetProjection(normal, firstCollider);
                 Vector2 secondProjection = GetProjection(normal, secondCollider);
@@ -193,7 +193,7 @@ namespace Cgame.Core
             return new Collision(mtv, Math.Abs(minMTVLength));
         }
 
-        private static Vector2 GetProjection(Vector2 vector, Collider collider)
+        public static Vector2 GetProjection(Vector2 vector, Collider collider)
         {
             Vector2 result = default;
 

@@ -35,7 +35,11 @@ namespace Cgame.Core
             GameContext.Update(delayTime);
             spaceStore.Update();
             spaceUpdater.Update(spaceStore.GetGameObjects().ToList(), delayTime);
-            var sprites = spaceStore.GetGameObjects().Where(o => o.Sprite != null).Select(o => o.Sprite);
+            var sprites = spaceStore.GetGameObjects().Where(o => o.Sprite != null).Select(o =>
+            {
+                o.Sprite.TransformToGameObject(o);
+                return o.Sprite;
+            });
             painter.Draw(sprites, spaceStore.Camera);
         }
     }

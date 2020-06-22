@@ -14,5 +14,6 @@ namespace Cgame.Core.Interfaces
         /// </summary>
         /// <param name="element"></param>
         void RemoveUIElement(UIElement element);
+        void Clear();
     }
 }

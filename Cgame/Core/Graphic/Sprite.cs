@@ -1,6 +1,6 @@
 ﻿using OpenTK;
 
-namespace Cgame.Core
+namespace Cgame.Core.Graphic
 {
     /// <summary>
     /// Содержит информации для отрисовки объекта.
@@ -14,11 +14,11 @@ namespace Cgame.Core
         /// <summary>
         /// Позиция спайта в глобальной системе координат. Совпадает с координатами объекта-родителя.
         /// </summary>
-        public Vector3 Position => gameObject.Position;
+        public Vector3 Position { get; set; }
         /// <summary>
         /// Угол поворота спайта вокруг его центра. Совпадает с углом поворота объекта-родителя.
         /// </summary>
-        public float Angle => MathHelper.DegreesToRadians(gameObject.Angle);
+        public float Angle { get; set; }
         /// <summary>
         /// Текущий индекс текстуры в списке текстур спрайта.
         /// </summary>
@@ -28,29 +28,24 @@ namespace Cgame.Core
         /// </summary>
         public int Count => textures.Length;
 
-        private readonly GameObject gameObject;
         private readonly string[] textures;
 
         /// <summary>
         /// Создаёт спрайт с одной указанной текстурой.
         /// </summary>
-        /// <param name="gameObject">Объект-родитель.</param>
         /// <param name="texture">Имя текстуры в библиотеке текстур.</param>
-        public Sprite(GameObject gameObject, string texture)
+        public Sprite(string texture)
         {
             textures = new string[] { texture };
-            this.gameObject = gameObject;
         }
 
         /// <summary>
         /// Создаёт спрайт с указанным списом текстур.
         /// </summary>
-        /// <param name="gameObject">Объект-родитель.</param>
         /// <param name="textures">Массив имён текстур в библиотеке текстур</param>
-        public Sprite(GameObject gameObject, string[] textures)
+        public Sprite(string[] textures)
         {
             this.textures = textures;
-            this.gameObject = gameObject;
         }
 
         /// <summary>

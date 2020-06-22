@@ -1,6 +1,6 @@
 ﻿using Cgame.Core;
 using Cgame.Core.Interfaces;
-using Cgame.Core.Shaders;
+using Cgame.Core.Graphic;
 using Cgame.Interfaces;
 using Cgame.objects;
 using Ninject;

@@ -1,10 +1,9 @@
 ﻿using Cgame.Core.Interfaces;
-using Cgame.Core.Shaders;
 using OpenTK;
 using OpenTK.Graphics.OpenGL4;
 using System.Collections.Generic;
 
-namespace Cgame.Core
+namespace Cgame.Core.Graphic
 {
     class Painter : IPainter
     {

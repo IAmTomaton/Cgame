@@ -25,5 +25,10 @@ namespace Cgame.Core
             if (element is null) throw new ArgumentNullException("Удаляемый UI элемент не может быть null.");
             if (Grid.Children.Contains(element)) Grid.Children.Remove(element);
         }
+
+        public void Clear()
+        {
+            Grid.Children.Clear();
+        }
     }
 }

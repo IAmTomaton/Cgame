@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Cgame.Core;
+using Cgame.Core.Graphic;
 using Cgame.Interfaces;
 using OpenTK;
 using OpenTK.Input;
@@ -20,7 +21,7 @@ namespace Cgame
         {
             this.player = player;
             this.range = range;
-            Sprite = new Sprite(this, "bullet");
+            Sprite = new Sprite("bullet");
             Layer = Layer.Player;
             Collider = new Collider(16, 16);
             Mass = 0.05f;

@@ -1,7 +1,6 @@
 ﻿using Cgame.Core;
 using Cgame.Core.Graphic;
 using Cgame.Core.Interfaces;
-using Cgame.Core.Shaders;
 using Ninject;
 using OpenTK;
 using System.Timers;

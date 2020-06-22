@@ -62,21 +62,26 @@ namespace Cgame.Core
                     if (objects[i].Collider is null || objects[j].Collider is null)
                         continue;
 
-                    var firstCollider = objects[i].Collider.TransformToGameObject(objects[i]);
-                    var secondCollider = objects[j].Collider.TransformToGameObject(objects[j]);
-
-                    var collision = Collider.Collide(firstCollider, secondCollider);
-                    if (!collision.Collide)
-                        continue;
-                    if (!firstCollider.IsTrigger && !secondCollider.IsTrigger)
-                    {
-                        var massSum = objects[i].Mass + objects[j].Mass;
-                        DisplacementObjectAfterCollision(objects[i], massSum, collision, 1);
-                        DisplacementObjectAfterCollision(objects[j], massSum, collision, -1);
-                    }
-                    objects[i].OnCollision(objects[j]);
-                    objects[j].OnCollision(objects[i]);
+                    Collide(objects[i], objects[j]);
                 }
+        }
+
+        private void Collide(GameObject firstGameObject, GameObject secondGameObject)
+        {
+            var firstCollider = firstGameObject.Collider.TransformToGameObject(firstGameObject);
+            var secondCollider = secondGameObject.Collider.TransformToGameObject(secondGameObject);
+
+            var collision = Collider.Collide(firstCollider, secondCollider);
+            if (!collision.Collide)
+                return;
+            if (!firstCollider.IsTrigger && !secondCollider.IsTrigger)
+            {
+                var massSum = firstGameObject.Mass + secondGameObject.Mass;
+                DisplacementObjectAfterCollision(firstGameObject, massSum, collision, 1);
+                DisplacementObjectAfterCollision(secondGameObject, massSum, collision, -1);
+            }
+            firstGameObject.OnCollision(secondGameObject);
+            secondGameObject.OnCollision(firstGameObject);
         }
 
         /// <summary>

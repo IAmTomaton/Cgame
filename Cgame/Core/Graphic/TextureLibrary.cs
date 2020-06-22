@@ -1,5 +1,4 @@
 ﻿using Cgame.Core.Interfaces;
-using Cgame.Core.Shaders;
 using System;
 using System.Collections.Generic;
 using System.IO;

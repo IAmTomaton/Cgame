@@ -1,7 +1,9 @@
 ﻿using Cgame.Core;
 using NUnit.Framework;
 using OpenTK;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace NUnitTestProject
 {
@@ -32,6 +34,14 @@ namespace NUnitTestProject
         }
 
         [Test]
+        public void TestСircularColliderGetNormals()
+        {
+            var normals = new Collider(10).GetNormals().ToList();
+
+            Assert.IsEmpty(normals);
+        }
+
+        [Test]
         public void TestRectangularCollider()
         {
             var first = new Collider(10, 10);
@@ -41,6 +51,14 @@ namespace NUnitTestProject
 
             Assert.AreEqual(10, result.MtvLength);
             Assert.IsTrue(result.Collide);
+        }
+
+        [Test]
+        public void TestRectangularColliderGetNormals()
+        {
+            var normals = new Collider(10, 10).GetNormals().ToList();
+
+            Assert.AreEqual(new List<Vector2>() { new Vector2(0, -1), new Vector2(-1, 0), new Vector2(0, 1), new Vector2(1, 0) }, normals);
         }
 
         [Test]
@@ -89,6 +107,16 @@ namespace NUnitTestProject
 
             Assert.AreEqual(0, result.MtvLength);
             Assert.IsTrue(result.Collide);
+        }
+
+        [Test]
+        public void TestArbitraryColliderGetNormals()
+        {
+            var collider = new Collider(new List<Vector2>() { new Vector2(10, 10), new Vector2(10, -10), new Vector2(0, 10) }, Vector2.Zero);
+
+            var normals = collider.GetNormals().Select(n => new Vector2((float)Math.Round(n.X, 1), (float)Math.Round(n.Y, 1))).ToList();
+
+            Assert.AreEqual(new List<Vector2>() { new Vector2(-1, 0), new Vector2(0.9f, 0.4f), new Vector2(0, -1) }, normals);
         }
     }
 }

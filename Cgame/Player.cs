@@ -11,6 +11,7 @@ using OpenTK.Input;
 using System.Windows.Input;
 using Key = System.Windows.Input.Key;
 using System.Windows.Controls;
+using Cgame.Core.Graphic;
 
 namespace Cgame
 {
@@ -47,7 +48,7 @@ namespace Cgame
         public Player() : base()
         {
             IsAlive = true;
-            Sprite = new Sprite(this, new[] { "player1", "player2"});
+            Sprite = new Sprite(new[] { "player1", "player2"});
             Collider = new Collider(48, 48);
             Layer = Layer.Player;
             Mass = 10;
