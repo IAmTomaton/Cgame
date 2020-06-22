@@ -60,5 +60,5 @@ https://github.com/IAmTomaton/Cgame/blob/master/Cgame/MainWindow.xaml.cs
 В папке Resources располагаются не .cs или подобные файлы. Текстуры, шейдеры, файлы настройки и прочее.
 
 # Слои
-
+![DDD](https://github.com/IAmTomaton/Cgame/blob/master/DDD.jpg)
 
