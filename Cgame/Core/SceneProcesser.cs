@@ -25,9 +25,9 @@ namespace Cgame
 
     public class SceneProcesser:ISceneProcesser
     {
-        private static Stack<GameObject> gameObjectsStack = new Stack<GameObject>();
-        private Lazy<ISpaceStore> spaceContext;
-        private IGameObjectFactory factory;
+        private static readonly Stack<GameObject> gameObjectsStack = new Stack<GameObject>();
+        private readonly Lazy<ISpaceStore> spaceContext;
+        private readonly IGameObjectFactory factory;
 
         public SceneProcesser(Lazy<ISpaceStore> spaceContext, IGameObjectFactory gameObjectFactory)
         {

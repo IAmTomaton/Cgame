@@ -62,7 +62,6 @@ namespace Cgame
     {
         private Game game;
         private readonly Timer timer = new Timer(10);
-        public static StandardKernel Conteiner { get; private set; }
 
         public MainWindow()
         {
@@ -93,7 +92,6 @@ namespace Cgame
             conteiner.Bind<GameObject>().To<Menu>().Named("Menu");
             conteiner.Bind<IGameObjectFactory>()
                 .ToFactory(() => new UseFirstArgumentAsNameInstanceProvider());
-            Conteiner = conteiner;
             return conteiner;
         }
 
