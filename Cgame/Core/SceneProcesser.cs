@@ -27,9 +27,12 @@ namespace Cgame
     {
         private static Stack<GameObject> gameObjectsStack = new Stack<GameObject>();
         private Lazy<ISpaceStore> spaceContext;
-        public SceneProcesser(Lazy<ISpaceStore> spaceContext)
+        private IGameObjectFactory factory;
+
+        public SceneProcesser(Lazy<ISpaceStore> spaceContext, IGameObjectFactory gameObjectFactory)
         {
             this.spaceContext = spaceContext;
+            factory = gameObjectFactory;
         }
 
         public GameObject CreateObjectToAdd(string[] commandParts)
@@ -47,7 +50,6 @@ namespace Cgame
                 .Aggregate((f, s) => f && s):ifParsed = true;
             if (ifParsed)
             {
-                var factory = MainWindow.Conteiner.Get<IGameObjectFactory>();
                 var name = commandParts[2];
                 try
                 {
